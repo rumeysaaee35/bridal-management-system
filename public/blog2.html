@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Düğün Fotoğrafı Önerileri - Livza Sposa</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("header").innerHTML = html);
+</script>
+
+
+
+<!-- KAPAK FOTOĞRAF -->
+<div class="blog-hero">
+    <img src="https://www.hasanvardar.com.tr/wp-content/uploads/2017/03/dugunpozu_3-1.jpg" alt="">
+</div>
+
+
+<section class="blog-content-section">
+
+    <h1 class="blog-title">Düğün Fotoğrafı Önerileri</h1>
+
+    <p class="blog-meta">📅 2025 · 💍 Düğün Hazırlıkları</p>
+
+    <p class="blog-text">
+        En özel gününüzde unutulmaz kareler yakalamak için doğru ışık, uygun mekan ve doğal pozlar büyük önem taşır.
+        Bu yazımızda profesyonel düğün fotoğrafçılarının en çok önerdiği teknikleri bir araya getirdik.
+    </p>
+
+    <h2>1. Altın Saatte Çekim Yapın</h2>
+    <p class="blog-text">
+        Gün doğumu ve gün batımına yakın saatlerde ışık daha yumuşak olur. Bu yumuşak ışık hem gelinliğinizin
+        detaylarını öne çıkarır hem de fotoğraflarınıza romantik bir atmosfer katar.
+    </p>
+
+    <h2>2. Doğal Pozlardan Korkmayın</h2>
+    <p class="blog-text">
+        Poz verirken kasılmak fotoğrafların yapay görünmesine neden olur. Fotoğrafçınızla sohbet ederek,
+        yürüyüş yaparak veya birbirinize bakarak doğal pozlar yakalayabilirsiniz. Bu tarz kareler her zaman daha
+        samimi ve gerçek olur.
+    </p>
+
+    <h2>3. Mekan Seçimi Önemlidir</h2>
+    <p class="blog-text">
+        Doğal ortamlar, tarihi yapılar veya şık iç mekanlar fotoğrafınıza farklı bir atmosfer katar.
+        Eğer dış mekanda çekim düşünüyorsanız, mekanda kalabalığın az olduğu saatleri tercih etmek çok daha iyi sonuç verir.
+    </p>
+
+    <h2>4. Küçük Detaylara Özen Gösterin</h2>
+    <p class="blog-text">
+        Gelin çiçeğiniz, ayakkabınız, yüzükleriniz ve duvağınız gibi detaylar fotoğraf albümünüzü zenginleştirir.
+        Fotoğrafçınızdan mutlaka bu detayları çekmesini isteyin.
+    </p>
+
+    <h2>5. Gülümsemeyi Unutmayın!</h2>
+    <p class="blog-text">
+        En güzel fotoğraf doğal gülümsemedir. Kendinizi rahat bırakın ve anın tadını çıkarın.
+        Sizin enerjiniz fotoğraflara birebir yansıyacaktır.
+    </p>
+
+</section>
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h3>Livza Sposa</h3>
+            <p>
+                Hayalinizdeki gelinliğe giden yolda<br>
+                zarafet ve kaliteyi bir araya getiriyoruz.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Menü</h4>
+            <a href="index.html">Anasayfa</a>
+            <a href="urunler.html">Mağaza</a>
+            <a href="blog.html">Blog</a>
+            <a href="hakkimizda.html">Hakkımızda</a>
+            <a href="iletisim.html">İletişim</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p>📍 İzmir / Türkiye</p>
+            <p>📞 05xx xxx xx xx</p>
+            <p>✉️ info@livzasposa.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Bizi Takip Et</h4>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2025 Livza Sposa — Tüm Hakları Saklıdır
+    </div>
+</footer>
+
+
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="login-modal hidden">
+  <div class="login-box">
+
+    <span class="close-modal" id="closeLogin">&times;</span>
+
+    <!-- GİRİŞ -->
+    <div id="loginBox">
+      <h3>Giriş Yap</h3>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Şifre">
+      <button onclick="login()">Giriş Yap</button>
+
+      <p class="switch-text">
+        <a href="#" id="openForgot">Şifremi unuttum?</a>
+      </p>
+
+      <p class="switch-text">
+        Hesabın yok mu?
+        <a href="#" id="openRegister">Kayıt ol</a>
+      </p>
+    </div>
+
+    <!-- KAYIT -->
+    <div id="registerBox" class="hidden">
+      <h3>Kayıt Ol</h3>
+      <input id="registerAd" placeholder="Ad">
+      <input id="registerSoyad" placeholder="Soyad">
+      <input id="registerEmail" placeholder="Email">
+      <input type="password" id="registerPassword" placeholder="Şifre">
+      <button onclick="register()">Kayıt Ol</button>
+
+      <p class="switch-text">
+        <a href="#" id="openLogin">Girişe dön</a>
+      </p>
+    </div>
+
+    <!-- ŞİFREMİ UNUTTUM -->
+    <div id="forgotBox" class="hidden">
+      <h3>Şifre Yenile</h3>
+      <input type="email" id="forgotEmail" placeholder="Email">
+      <button onclick="sendResetMail()">Gönder</button>
+
+      <p class="switch-text">
+        <a href="#" id="backToLogin">Girişe dön</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

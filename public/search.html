@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ara | Livza Sposa</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="header"></div>
+<script>
+fetch("header.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("header").innerHTML = h);
+</script>
+
+<section class="search-page">
+
+  <h1 class="search-title">Ara</h1>
+
+  <input
+    type="text"
+    id="searchInput"
+    class="search-input"
+    placeholder="Gelinlik, nişanlık..."
+    onkeyup="searchProduct()"
+  >
+
+  <h3 class="search-subtitle">İncelenen Ürün</h3>
+
+  <div id="searchResults" class="urun-grid"></div>
+
+</section>
+
+<script src="js/search.js"></script>
+</body>
+</html>

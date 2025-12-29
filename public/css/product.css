@@ -1,0 +1,76 @@
+/* --- ÜRÜN DETAY DÜZELTME --- */
+
+/* Sayfayı ikiye böl */
+.product-detail-wrapper {
+    display: flex;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    align-items: flex-start; /* Yukarı hizala */
+}
+
+/* Sol Taraf (Resim) */
+.product-left {
+    flex: 1;
+}
+.product-left img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Sağ Taraf (Yazılar) */
+.product-info {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.product-info h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', serif;
+}
+
+.product-info .price-box {
+    font-size: 24px;
+    color: #C59A6D; /* Gold */
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* BUTONLAR (En önemlisi) */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.big-cart-btn {
+    flex: 2; /* Geniş buton */
+    background: #000;
+    color: white;
+    padding: 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.randevu-btn {
+    flex: 1; /* Daha dar buton */
+    background: white;
+    color: #000;
+    border: 2px solid #000;
+    padding: 18px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.big-cart-btn:hover { background: #333; }
+.randevu-btn:hover { background: #f0f0f0; }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kayıt Ol - Livza Sposa</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("header").innerHTML = html);
+</script>
+
+<!-- ================= KAYIT ================= -->
+<section class="page-section">
+    <h1 class="page-title">Kayıt Ol</h1>
+
+    <div class="register-wrapper">
+
+        <div class="register-box">
+            <h3>Yeni Hesap Oluştur</h3>
+
+            <div class="form-error hidden" id="formError"></div>
+
+            <input type="text" id="registerAd" placeholder="Ad">
+            <input type="text" id="registerSoyad" placeholder="Soyad">
+            <input type="email" id="registerEmail" placeholder="Email">
+            <input type="tel" id="registerTelefon" placeholder="Telefon">
+            <input type="password" id="registerPassword" placeholder="Şifre">
+
+            <button onclick="register()">Kayıt Ol</button>
+
+            <p class="switch-text">
+                Zaten hesabın var mı?
+                <a href="login.html">Giriş Yap</a>
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h3>Livza Sposa</h3>
+            <p>
+                Hayalinizdeki gelinliğe giden yolda<br>
+                zarafet ve kaliteyi bir araya getiriyoruz.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p>📍 İzmir / Türkiye</p>
+            <p>📞 05xx xxx xx xx</p>
+            <p>✉️ info@livzasposa.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Bizi Takip Et</h4>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2025 Livza Sposa — Tüm Hakları Saklıdır
+    </div>
+</footer>
+<script src="js/login.js"></script>
+</body>
+</html>

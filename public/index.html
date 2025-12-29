@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  
+     <title>Livza Sposa</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("header").innerHTML = html;
+    // 🔥 HEADER GELDİKTEN SONRA AUTH BAŞLAT
+    if (typeof initAuth === "function") {
+      initAuth();
+    }
+  });
+
+  
+</script>
+
+
+
+<style>
+    .header-right-menu { position: fixed; top: 20px; right: 40px; display: flex; gap: 15px; z-index: 10000; }
+    .icon-btn { background: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #eee; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .badge-count { position: absolute; top: -5px; right: -5px; background: #ff3366; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; }
+    .user-dropdown-menu { display: none; position: absolute; top: 55px; right: 0; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #f1f1f1; padding: 10px 0; }
+    .user-dropdown-menu.active { display: block; }
+    .user-dropdown-menu a { display: block; padding: 10px 20px; color: #444; text-decoration: none; font-size: 14px; }
+    .user-dropdown-menu a:hover { background: #fff0f3; color: #ff3366; }
+    .user-welcome { padding: 5px 20px; font-weight: bold; }
+    /* İkonların sağ üstte düzgün durması için */
+.header-right-icons {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    display: flex;
+    gap: 15px;
+    z-index: 10001; /* Her şeyin üstünde olması için */
+}
+
+.icon-btn-circle {
+    background: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    color: #333;
+}
+
+.icon-btn-circle:hover { background: #fdfafb; color: #ff3366; }
+
+/* Menü Listesi Tasarımı */
+.user-dropdown-list {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: #fff;
+    min-width: 220px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    padding: 10px 0;
+    border: 1px solid #f1f1f1;
+}
+
+.user-dropdown-list.active { display: block; animation: fadeInDown 0.3s; }
+
+.user-dropdown-list a {
+    display: block;
+    padding: 12px 20px;
+    color: #444;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.user-dropdown-list a i { width: 20px; margin-right: 10px; color: #ff3366; }
+</style>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>En özel gününüz için en zarif modeller</h2>
+    <a class="hero-btn" href="urunler.html">Ürünleri İncele</a>
+  </div>
+</section>
+
+<section class="vitrin-section">
+    <div class="vitrin-header">
+        <h2>Exclusive Koleksiyon</h2>
+        <p>En değerli parçalarımız, sizin için seçildi.</p>
+    </div>
+
+
+
+<style>
+    /* İkon Menü Yerleşimi */
+    .header-right-menu { position: fixed; top: 20px; right: 40px; display: flex; gap: 15px; z-index: 10001; }
+    .icon-btn { background: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #eee; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
+    .icon-btn:hover { background: #fdfafb; color: #ff3366; }
+    .badge-count { position: absolute; top: -5px; right: -5px; background: #ff3366; color: white; font-size: 11px; padding: 2px 7px; border-radius: 12px; font-weight: bold; }
+    
+    /* Açılır Menü (Dropdown) */
+    .user-dropdown-menu { display: none; position: absolute; top: 60px; right: 0; background: white; min-width: 220px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid #f1f1f1; padding: 12px 0; overflow: hidden; }
+    .user-dropdown-menu.active { display: block; animation: slideIn 0.3s ease; }
+    .user-dropdown-menu a { display: block; padding: 12px 20px; color: #444; text-decoration: none; font-size: 14px; transition: 0.2s; }
+    .user-dropdown-menu a:hover { background: #fff0f3; color: #ff3366; }
+    .user-welcome { padding: 10px 20px; background: #fafafa; border-bottom: 1px solid #eee; }
+    
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+/* Menü varsayılan olarak gizli */
+.user-dropdown-list {
+    display: none; 
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    min-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 9999;
+}
+
+/* JavaScript bu sınıfı eklediğinde menü görünür olur */
+.user-dropdown-list.active {
+    display: block !important;
+}
+
+.user-dropdown-list a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown-list a:hover {
+    background: #f8f8f8;
+}
+  </style>
+
+    <div class="slider-wrapper">
+        <button class="slider-btn prev-btn" onclick="scrollSlider(-1)">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="slider-track" id="vitrin-track">
+            <p style="text-align:center; width:100%">Yükleniyor...</p>
+        </div>
+
+        <button class="slider-btn next-btn" onclick="scrollSlider(1)">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+
+<div id="loginModal" class="login-modal hidden">
+  <div class="login-box"> <span class="close-login" id="closeLogin">&times;</span>
+
+    <div id="loginBox">
+        <h2>Giriş Yap</h2>
+        <input type="email" id="loginEmail" placeholder="E-posta">
+        <input type="password" id="loginPassword" placeholder="Şifre">
+        
+        <button type="button" onclick="login()">Giriş Yap</button>
+
+        <div class="modal-footer">
+            <a href="#" onclick="forgotPassword()" style="font-size: 0.9rem; color: #666;">Şifremi Unuttum</a>
+            <br><br>
+            <p>Hesabın yok mu? <a href="#" onclick="showRegister()" style="color: var(--gold); font-weight: bold;">Kayıt Ol</a></p>
+        </div>
+    </div>
+
+    <div id="registerBox" class="hidden">
+        <h2>Kayıt Ol</h2>
+        <input type="text" id="regAd" placeholder="Adınız">
+        <input type="text" id="regSoyad" placeholder="Soyadınız">
+        <input type="email" id="regEmail" placeholder="E-posta">
+        <input type="password" id="regPassword" placeholder="Şifre">
+        
+        <button type="button" onclick="register()">Kayıt Ol</button>
+
+        <div class="modal-footer">
+            <p>Zaten üye misin? <a href="#" onclick="showLogin()" style="color: var(--gold); font-weight: bold;">Giriş Yap</a></p>
+        </div>
+    </div>
+
+  </div>
+</div>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>Livza Sposa</h3>
+            <p>Hayalinizdeki gelinliğe giden yolda<br>zarafet ve kaliteyi bir araya getiriyoruz.</p>
+        </div>
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p>📍 İzmir / Türkiye</p>
+            <p>📞 +90 507 174 13 83</p>
+            <p>✉️ info@livzasposa.com</p>
+        </div>
+     
+        </div>
+    </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/login.js"></script>
+<script src="js/vitrin.js"></script>
+<script src="js/musteri_ozel.js"></script> </body>
+</body>
+</html>
+

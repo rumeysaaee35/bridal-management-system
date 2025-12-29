@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Hakkımızda - Livza Sposa</title>
+
+    <!-- ANA CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("header").innerHTML = html);
+</script>
+
+
+<!-- ================= HAKKIMIZDA İÇERİK ================= -->
+<section class="page-section">
+    <h1 class="page-title">Hakkımızda</h1>
+
+    <section class="about-container">
+
+        <!-- SOL GÖRSEL -->
+        <div class="image-box left">
+            <img src="https://i.pinimg.com/736x/0a/51/cd/0a51cdbfa0edc60759b1bf43acb7f15d.jpg" alt="Gelinlik">
+        </div>
+
+        <!-- METİN -->
+        <div class="about-text">
+            <h2>Livza Sposa</h2>
+            <p>
+                Livza Sposa olarak kendinizi en zarif ve en özel şekilde hissetmenizi sağlamak için çalışıyoruz.
+                Her tarza uygun, özenle seçilmiş gelinlik modellerimizle yıllardır özel günlerinizi
+                güzelleştirmeye devam ediyoruz.
+            </p>
+
+            <p>
+                Profesyonel ekibimiz, ölçü alımından prova sürecine kadar her aşamada yanınızda olup,
+                size en uygun modeli bulmanız için rehberlik eder.
+                Amacımız; hayallerinizdeki gelinlik ile buluşmanızı sağlamak ve bu süreci sizin için
+                unutulmaz kılmaktır.
+            </p>
+
+            <p>
+                Her detayda şıklığı, zarafeti ve kaliteyi bir araya getirdiğimiz Livza Sposa’da,
+                kendinizi evinizde hissedecek, özel ilgiyle karşılanacak ve hayal ettiğiniz gelinliğe
+                emin adımlarla ilerleyeceksiniz.
+            </p>
+        </div>
+
+        <!-- SAĞ GÖRSEL -->
+        <div class="image-box right">
+            <img src="https://i.pinimg.com/736x/a7/e7/f0/a7e7f012628fb7263c1eca4625746b5f.jpg" alt="Gelinlik Modeli">
+        </div>
+
+    </section>
+</section>
+
+<!-- ================= HİZMETLER ================= -->
+<section class="services-section">
+    <h3 class="services-subtitle">NASIL YAPIYORUZ?</h3>
+    <h2 class="services-title">Gelinlikte<br>Atılan İmza</h2>
+    <div class="services-decoration">❧</div>
+
+    <div class="services-container">
+
+        <div class="service-box">
+            <div class="icon">🧵</div>
+            <h4>Tasarım & Uygulama</h4>
+            <p>
+                Uzman tasarımcılarımız ile sizlere en iyisini sunmak için çalışıyoruz.
+                Aldığımız ölçülere ve beden şeklinize uygun en iyi modeli titizlikle uyguluyoruz.
+            </p>
+        </div>
+
+        <div class="service-box">
+            <div class="icon">👗</div>
+            <h4>Üretimde Devamlılık</h4>
+            <p>
+                Modaya uygun, şık ve rahat modelleri seçip sizin beğeninize sunuyoruz.
+                Her zaman ve çağa uygun üretimler gerçekleştiriyoruz.
+            </p>
+        </div>
+
+        <div class="service-box">
+            <div class="icon">🪡</div>
+            <h4>Temiz & Kalıplı Üretim</h4>
+            <p>
+                Kullandığımız tüm malzemeleri titizlikle seçiyor,
+                temiz işçilik ve doğru kalıplarla üretim sağlıyoruz.
+            </p>
+        </div>
+
+        <div class="service-box">
+            <div class="icon">💍</div>
+            <h4>Mutlu Anlarınız İçin</h4>
+            <p>
+                Özel gününüzde unutulmaz anılar biriktirmeniz için
+                en iyi hizmeti sunuyor, mutluluğunuzun parçası olmaktan
+                gurur duyuyoruz.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="login-modal hidden">
+  <div class="login-box">
+
+    <span class="close-modal" id="closeLogin">&times;</span>
+
+    <!-- GİRİŞ -->
+    <div id="loginBox">
+      <h3>Giriş Yap</h3>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Şifre">
+      <button onclick="login()">Giriş Yap</button>
+
+      <p class="switch-text">
+        <a href="#" id="openForgot">Şifremi unuttum?</a>
+      </p>
+
+      <p class="switch-text">
+        Hesabın yok mu?
+        <a href="#" id="openRegister">Kayıt ol</a>
+      </p>
+    </div>
+
+    <!-- KAYIT -->
+    <div id="registerBox" class="hidden">
+      <h3>Kayıt Ol</h3>
+      <input id="registerAd" placeholder="Ad">
+      <input id="registerSoyad" placeholder="Soyad">
+      <input id="registerEmail" placeholder="Email">
+      <input type="password" id="registerPassword" placeholder="Şifre">
+      <button onclick="register()">Kayıt Ol</button>
+
+      <p class="switch-text">
+        <a href="#" id="openLogin">Girişe dön</a>
+      </p>
+    </div>
+
+    <!-- ŞİFREMİ UNUTTUM -->
+    <div id="forgotBox" class="hidden">
+      <h3>Şifre Yenile</h3>
+      <input type="email" id="forgotEmail" placeholder="Email">
+      <button onclick="sendResetMail()">Gönder</button>
+
+      <p class="switch-text">
+        <a href="#" id="backToLogin">Girişe dön</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h3>Livza Sposa</h3>
+            <p>
+                Hayalinizdeki gelinliğe giden yolda<br>
+                zarafet ve kaliteyi bir araya getiriyoruz.
+            </p>
+        </div>
+
+        
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p>📍 Akdeniz, Fevzi Paşa Blv No: 31, 35280 Çankaya / İzmir</p>
+            <p>📞+90 507 174 13 83 </p>
+            <p>✉️ info@livzasposa.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Bizi Takip Et</h4>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

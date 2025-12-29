@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2025 Gelinlik Trendleri - Livza Sposa</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("header").innerHTML = html);
+</script>
+
+
+<section class="blog-detail">
+
+    <img class="blog-cover" 
+         src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1400"
+         alt="2025 gelinlik trendleri">
+
+    <h1>2025 Gelinlik Trendleri</h1>
+
+    <p>
+        2025 yılı gelinlik modasında zarafet, romantizm ve modern çizgiler bir araya geliyor.
+        Tasarımcılar bu yıl özellikle doğallığı ön plana çıkaran kumaşlar, işlemeler ve hafif
+        kabartmalar kullanıyor.
+    </p>
+
+    <h2>1. Dantel Dokulu Premium Kumaşlar</h2>
+    <p>
+        Transparan tüller ve ince işçilikle kombinlenen dantel kumaşlar 2025’te en çok tercih edilen
+        detaylar arasında. Özellikle Fransız danteli, koleksiyonlarda büyük yer kaplıyor.
+    </p>
+
+    <h2>2. Minimal ve Zarif Kesimler</h2>
+    <p>
+        Minimal çizgiler, sadeliğin modern yorumuyla birleşerek etkileyici bir görünüm sunuyor.
+        Saten düz kesimler ve A-form modeller bu yıl öne çıkıyor.
+    </p>
+
+    <h2>3. İnci ve Taş İşlemeli Detaylar</h2>
+    <p>
+        İnci işlemeleri özellikle kol ve yaka detaylarında sıkça görülüyor. Gelinliğe narin ve
+        romantik bir yansıma katıyor.
+    </p>
+
+</section>
+
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h3>Livza Sposa</h3>
+            <p>
+                Hayalinizdeki gelinliğe giden yolda<br>
+                zarafet ve kaliteyi bir araya getiriyoruz.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Menü</h4>
+            <a href="index.html">Anasayfa</a>
+            <a href="urunler.html">Mağaza</a>
+            <a href="blog.html">Blog</a>
+            <a href="hakkimizda.html">Hakkımızda</a>
+            <a href="iletisim.html">İletişim</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p>📍 İzmir / Türkiye</p>
+            <p>📞 05xx xxx xx xx</p>
+            <p>✉️ info@livzasposa.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Bizi Takip Et</h4>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2025 Livza Sposa — Tüm Hakları Saklıdır
+    </div>
+</footer>
+
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="login-modal hidden">
+  <div class="login-box">
+
+    <span class="close-modal" id="closeLogin">&times;</span>
+
+    <!-- GİRİŞ -->
+    <div id="loginBox">
+      <h3>Giriş Yap</h3>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Şifre">
+      <button onclick="login()">Giriş Yap</button>
+
+      <p class="switch-text">
+        <a href="#" id="openForgot">Şifremi unuttum?</a>
+      </p>
+
+      <p class="switch-text">
+        Hesabın yok mu?
+        <a href="#" id="openRegister">Kayıt ol</a>
+      </p>
+    </div>
+
+    <!-- KAYIT -->
+    <div id="registerBox" class="hidden">
+      <h3>Kayıt Ol</h3>
+      <input id="registerAd" placeholder="Ad">
+      <input id="registerSoyad" placeholder="Soyad">
+      <input id="registerEmail" placeholder="Email">
+      <input type="password" id="registerPassword" placeholder="Şifre">
+      <button onclick="register()">Kayıt Ol</button>
+
+      <p class="switch-text">
+        <a href="#" id="openLogin">Girişe dön</a>
+      </p>
+    </div>
+
+    <!-- ŞİFREMİ UNUTTUM -->
+    <div id="forgotBox" class="hidden">
+      <h3>Şifre Yenile</h3>
+      <input type="email" id="forgotEmail" placeholder="Email">
+      <button onclick="sendResetMail()">Gönder</button>
+
+      <p class="switch-text">
+        <a href="#" id="backToLogin">Girişe dön</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

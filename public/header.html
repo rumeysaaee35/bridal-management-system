@@ -1,0 +1,100 @@
+<div class="header">
+    <nav class="nav">
+        <a href="/">ANASAYFA</a>
+        <a href="/urunler.html">MAĞAZA</a>
+        <a href="/blog.html">BLOG</a>
+        <a href="/hakkimizda.html">HAKKIMIZDA</a>
+        <a href="/iletisim.html">İLETİŞİM</a>
+
+        <div class="logo">
+        <a href="/" style="text-decoration: none;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 28px; color: #333; margin: 0; letter-spacing: 2px; text-transform: uppercase;">
+                Livza <span style="color: #000000;">Sposa</span>
+            </h1>
+        </a>
+    </div>
+    </nav>
+
+    <div class="header-icons-left">
+        <div class="search-container" style="position: relative; flex: 1; max-width: 400px; margin: 0 20px;">
+    <form id="searchForm" onsubmit="aramaYap(event)" style="display: flex; align-items: center;">
+        <input type="text" id="searchInput" placeholder="Gelinlik, aksesuar veya model ara..." 
+               style="width: 100%; padding: 8px 15px 8px 40px; border-radius: 20px; border: 1px solid #ddd; outline: none; font-size: 14px; transition: 0.3s;">
+        <i class="fa-solid fa-magnifying-glass" 
+           style="position: absolute; left: 15px; color: #888;"></i>
+    </form>
+    <div id="searchSuggestions" style="display: none; position: absolute; top: 45px; width: 100%; background: white; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 1000; padding: 10px;">
+        </div>
+</div>
+        
+        <div class="user-dropdown-container" style="position: relative; display: inline-block;">
+            <a href="javascript:void(0)" id="login-btn" title="Hesabım" onclick="toggleUserMenu(event)">
+                <i class="fa-regular fa-user"></i>
+            </a>
+            
+            <div id="userDropdown" class="user-dropdown-list">
+                <div class="user-greet">
+                    <small>Merhaba,</small>
+                    <span id="user-display-name">Müşteri</span>
+                </div>
+                <hr>
+                <a href="javascript:void(0)" onclick="showSiparisTakip()"><i class="fas fa-shipping-fast"></i> Sipariş Takibi</a>
+                <a href="javascript:void(0)" onclick="showRandevularim()"><i class="fas fa-calendar-check"></i> Randevularım</a>
+                <a href="javascript:void(0)" onclick="showFiyatHesapla()"><i class="fas fa-calculator"></i> Fiyat Hesapla</a>
+                <hr>
+                <a href="javascript:void(0)" onclick="logout()" class="text-danger"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+            </div>
+        </div>
+        <a href="favoriler.html" class="header-icon">
+            <i class="fa-regular fa-heart"></i>
+            <span id="fav-count" class="cart-badge">0</span>
+        </a>
+        
+        <a href="sepet.html" class="icon-link">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="headerCartCount" class="cart-badge">0</span> 
+        </a>
+    </div>
+</div>
+
+<script>
+async function aramaYap(e) {
+    e.preventDefault();
+    const query = document.getElementById('searchInput').value;
+    if (query.length < 2) return;
+    window.location.href = `urunler.html?ara=${encodeURIComponent(query)}`;
+}
+
+// Arama kutusunu dinleyen kod
+document.getElementById('searchInput')?.addEventListener('keyup', async (e) => {
+    const query = e.target.value;
+    const suggestions = document.getElementById('searchSuggestions');
+
+    if (query.length < 2) {
+        if(suggestions) suggestions.style.display = 'none';
+        return;
+    }
+
+    try {
+        const res = await fetch(`/api/urunler/ara?q=${query}`);
+        const data = await res.json();
+
+        if (data.length > 0) {
+            suggestions.style.display = 'block';
+            suggestions.innerHTML = data.map(u => `
+                <a href="urun-detay.html?id=${u.model_id}" style="display: flex; align-items: center; gap: 10px; padding: 8px; text-decoration: none; color: #333; border-bottom: 1px solid #f8f9fa;">
+                    <img src="${u.ana_resim}" style="width: 40px; height: 40px; border-radius: 5px; object-fit: cover;">
+                    <div>
+                        <div style="font-size: 13px; font-weight: 600;">${u.model_ad}</div>
+                        <div style="font-size: 12px; color: #ff3366;">${u.satis_fiyat} ₺</div>
+                    </div>
+                </a>
+            `).join('');
+        } else {
+            suggestions.style.display = 'none';
+        }
+    } catch (err) {
+        console.error("Arama önerisi hatası:", err);
+    }
+});
+</script>

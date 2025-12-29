@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesabım - Livza Sposa</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-container { max-width: 1000px; margin: 40px auto; padding: 20px; min-height: 500px; }
+        
+        /* GİRİŞ EKRANI */
+        .login-box { 
+            max-width: 400px; margin: 50px auto; padding: 30px; 
+            background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; 
+        }
+        .login-box input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;}
+        .login-btn { width: 100%; padding: 12px; background: #333; color: white; border: none; border-radius: 5px; cursor: pointer; }
+
+        /* PROFİL İÇERİĞİ */
+        .profile-content { display: none; } /* Başta gizli */
+        .welcome-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .logout-btn { color: #ef4444; cursor: pointer; text-decoration: underline; }
+
+        /* SEKMELER */
+        .tabs { display: flex; gap: 20px; margin-bottom: 20px; }
+        .tab-btn { 
+            padding: 10px 20px; background: #f3f4f6; border: none; border-radius: 5px; cursor: pointer; font-weight: 500; 
+        }
+        .tab-btn.active { background: #333; color: white; }
+
+        /* LİSTELER */
+        .list-section { display: none; }
+        .list-section.active { display: block; }
+
+        .item-card { 
+            background: white; border: 1px solid #eee; padding: 15px; 
+            border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; 
+        }
+        .fav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .fav-card { background: white; border: 1px solid #eee; border-radius: 8px; padding: 10px; text-align: center; }
+        .fav-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <div class="profile-container">
+        
+        <div id="loginSection" class="login-box">
+            <h2>Müşteri Girişi</h2>
+            <p>Siparişlerinizi ve randevularınızı görüntülemek için telefon numaranızı giriniz.</p>
+            <input type="tel" id="userPhone" placeholder="0555 123 45 67">
+            <button class="login-btn" onclick="musteriGiris()">Giriş Yap</button>
+        </div>
+
+        <div id="profileSection" class="profile-content">
+            <div class="welcome-header">
+                <h2>Hesabım</h2>
+                <div>
+                    <span id="userPhoneDisplay" style="font-weight:bold; margin-right:15px;"></span>
+                    <span class="logout-btn" onclick="cikisYap()">Çıkış</span>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab('siparis')"><i class="fa-solid fa-bag-shopping"></i> Siparişlerim</button>
+                <button class="tab-btn" onclick="openTab('randevu')"><i class="fa-solid fa-calendar-check"></i> Randevularım</button>
+                <button class="tab-btn" onclick="openTab('favori')"><i class="fa-solid fa-heart"></i> Favorilerim</button>
+            </div>
+
+            <div id="tab-siparis" class="list-section active">
+                <div id="siparisListesi">Yükleniyor...</div>
+            </div>
+
+            <div id="tab-randevu" class="list-section">
+                <div id="randevuListesi">Yükleniyor...</div>
+            </div>
+
+            <div id="tab-favori" class="list-section">
+                <div id="favoriListesi" class="fav-grid">Yükleniyor...</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/js/profil.js"></script>
+    <script>
+        fetch("header.html").then(r=>r.text()).then(h=>document.getElementById("header").innerHTML=h);
+    </script>
+</body>
+</html>

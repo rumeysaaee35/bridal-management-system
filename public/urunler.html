@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mağaza - Livza Sposa</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+ <script>
+ fetch("header.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("header").innerHTML = html);
+ </script>
+
+<!-- ================= MAĞAZA ================= -->
+<div class="shop-container">
+
+    <!-- SOL FİLTRE -->
+    <aside class="filter-panel">
+
+        <div class="filter-block">
+            <h4>Kategori</h4>
+            <label><input type="radio" name="kategori" value="1"> Gelinlik</label>
+            <label><input type="radio" name="kategori" value="2"> Nişanlık</label>
+            <label><input type="radio" name="kategori" value="3"> After</label>
+        </div>
+
+        <div class="filter-block">
+            <h4>Beden</h4>
+            <label><input type="checkbox" class="filter-beden" value="36-38"> 36–38</label>
+            <label><input type="checkbox" class="filter-beden" value="38-40"> 38–40</label>
+            <label><input type="checkbox" class="filter-beden" value="40-42"> 40–42</label>
+        </div>
+
+        <div class="filter-block">
+            <h4>Renk</h4>
+            <div class="color-filter">
+                <span class="filter-renk" data-value="Beyaz" style="background:#fff"></span>
+                <span class="filter-renk" data-value="Krem" style="background:#8c0ad7"></span>
+                <span class="filter-renk" data-value="Bordo" style="background:#800020"></span>
+                <span class="filter-renk" data-value="Pembe" style="background:#ffc0cb"></span>
+                <span class="filter-renk" data-value="Mavi" style="background:#0000ff"></span>
+                <span class="filter-renk" data-value="Lavanta" style="background:#e6e6fa"></span> 
+                <span class="filter-renk" data-value="Şampanya" style="background:#e60404"></span>
+                <span class="filter-renk" data-value="Yeşil" style="background:#2e8b57"></span>
+                <span class="filter-renk" data-value="Sarı" style="background:#055e1b"></span>
+                <span class="filter-renk" data-value="Gri" style="background:#48e7ff"></span>
+            </div>
+        </div>
+
+        <div class="filter-block">
+            <h4>Fiyat</h4>
+            <input type="range" id="minFiyat" min="0" max="50000" step="1000" value="0">
+            <input type="range" id="maxFiyat" min="0" max="50000" step="1000" value="50000">
+            <p id="fiyatText">0 ₺ - 50.000 ₺</p>
+        </div>
+
+        <button onclick="filtreUygula()">Uygula</button>
+        <button class="reset" onclick="filtreSifirla()">Sıfırla</button>
+
+    </aside>
+
+    <!-- ÜRÜNLER -->
+    <section id="urunListesi" class="urun-container"></section>
+
+</div>
+
+<!-- ================= JS ================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".color-filter span").forEach(color => {
+        color.addEventListener("click", () => {
+            color.classList.toggle("active");
+        });
+    });
+});
+</script>
+
+<script src="./js/config.js"></script>
+<script src="./js/login.js"></script>
+<script src="./js/urunler.js"></script>
+</body>
+</html>

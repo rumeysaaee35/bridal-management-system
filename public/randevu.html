@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Al - Livza Sposa</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .appt-container { max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        .appt-header { text-align: center; margin-bottom: 30px; }
+        .appt-header h2 { font-family: 'Times New Roman', serif; font-size: 2rem; margin-bottom: 10px; }
+        .info-box { background: #e3f2fd; color: #0d47a1; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        
+        /* SAAT SEÇİMİ IZGARASI */
+        .time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px; }
+        .time-btn { 
+            padding: 10px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer; transition: 0.2s; 
+        }
+        .time-btn:hover:not(:disabled) { background: #333; color: white; }
+        .time-btn.selected { background: #333; color: white; border-color: #333; }
+        
+        /* DOLU SAAT STİLİ */
+        .time-btn:disabled { background: #ffebee; color: #c62828; border-color: #ffcdd2; cursor: not-allowed; text-decoration: line-through; }
+
+        .submit-btn { 
+            width: 100%; padding: 15px; background: #e53e3e; color: white; border: none; 
+            border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; 
+        }
+        .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <div class="appt-container">
+        <div class="appt-header">
+            <h2>Randevu Oluştur</h2>
+            <p>Hayalindeki gelinliği denemek için sana özel zaman ayıralım.</p>
+        </div>
+
+        <div class="info-box">
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+            <div>
+                <strong>Önemli Bilgi:</strong> 
+                Seçtiğiniz <span id="selectedModelName" style="font-weight:bold; text-decoration:underline;">Model</span> için prova randevusu alıyorsunuz. 
+                Randevularınızı 2 saat kala işletmeyi arayarak onaylamanız gerekmektedir.
+            </div>
+        </div>
+
+        <form id="randevuForm" onsubmit="randevuKaydet(event)">
+            <div class="form-grid">
+                
+                <div>
+                    <label>Adınız</label>
+                    <input type="text" id="ad" required placeholder="Adınız">
+                </div>
+                <div>
+                    <label>Soyadınız</label>
+                    <input type="text" id="soyad" required placeholder="Soyadınız">
+                </div>
+                <div>
+                    <label>Telefon</label>
+                    <input type="tel" id="telefon" required placeholder="0555...">
+                </div>
+                <div>
+                    <label>E-Posta</label>
+                    <input type="email" id="email" required placeholder="ornek@mail.com">
+                </div>
+
+                <div class="full-width">
+                    <label>Tarih Seçiniz</label>
+                    <input type="date" id="tarih" required>
+                </div>
+
+                <div class="full-width">
+                    <label>Saat Seçiniz</label>
+                    <div id="loadingTimes" style="display:none; color:#666; font-size:0.9rem;">Saatler kontrol ediliyor...</div>
+                    <div class="time-slots" id="timeSlots">
+                        <div style="color:#888; font-style:italic;">Lütfen önce tarih seçiniz.</div>
+                    </div>
+                    <input type="hidden" id="secilenSaat" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="kaydetBtn">Randevu Talebi Oluştur</button>
+        </form>
+    </div>
+
+    <script src="/js/randevu.js"></script>
+    <script>
+        fetch("header.html").then(r=>r.text()).then(h=>document.getElementById("header").innerHTML=h);
+    </script>
+</body>
+</html>

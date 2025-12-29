@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Favorilerim - Livza Sposa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(r => r.text())
+  .then(h => {
+    document.getElementById("header").innerHTML = h;
+    // Header yüklendikten sonra auth kontrolü (varsa) çalışsın
+    if (typeof initAuth === "function") initAuth();
+  });
+</script>
+
+<section class="page-section">
+  <div class="container" style="margin-top: 150px; text-align: center;"> <h1 class="page-title">Favorilerim ❤️</h1>
+      <br>
+
+      <div id="favoriListesi" class="urun-container"></div>
+
+      <p id="bosMesaj" style="display:none; font-size: 1.2rem; color: #666;">
+        Henüz favori listenize ürün eklemediniz.
+      </p>
+  </div>
+</section>
+
+<div id="loginModal" class="login-modal hidden">
+   </div>
+
+<script src="js/config.js"></script>
+<script src="js/login.js"></script> <script src="js/favori.js"></script>
+
+<script>
+  // Sayfa yüklendiğinde favorileri çek
+  document.addEventListener("DOMContentLoaded", () => {
+    // favori.js içinde bu fonksiyonun olduğundan emin ol
+    if (typeof favorileriGetir === "function") {
+        favorileriGetir();
+    }
+  });
+</script>
+
+</body>
+</html>

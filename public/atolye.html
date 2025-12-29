@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atölye Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        
+        /* SOL MENÜ (SIDEBAR) */
+        .sidebar { 
+            width: 260px; height: 100vh; background: white; 
+            position: fixed; left: 0; top: 0; padding: 20px; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05); 
+            display: flex; flex-direction: column; z-index: 1000;
+        }
+        .brand-logo { font-size: 24px; font-weight: bold; color: #333; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+        .brand-icon { width: 40px; height: 40px; background: linear-gradient(45deg, #ff3366, #ff6b6b); border-radius: 10px; }
+        
+        .nav-link { 
+            color: #666; font-weight: 500; padding: 12px 15px; 
+            border-radius: 10px; margin-bottom: 5px; cursor: pointer; transition: 0.3s; 
+        }
+        .nav-link:hover { background-color: #f0f2f5; color: #333; }
+        .nav-link.active { background-color: #eef2ff; color: #4361ee; font-weight: 600; }
+
+        /* SAĞ İÇERİK ALANI */
+        .main-content { margin-left: 260px; padding: 30px; }
+        .card-custom { background: white; border-radius: 15px; border: none; padding: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.03); margin-bottom: 20px; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        
+        /* Arama Kutusu */
+        .search-box input { border-radius: 20px; padding-left: 20px; border: 1px solid #ddd; width: 300px; }
+        
+        /* Tablo Tasarımı */
+        .table thead th { background-color: #f8f9fa; color: #6c757d; font-weight: 600; padding: 15px; border-bottom: none; }
+        .table tbody td { padding: 15px; vertical-align: middle; color: #444; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand-logo">
+            <span class="brand-icon"></span> 
+            Atölye Paneli
+        </div>
+        
+        <nav class="nav flex-column">
+            <div class="nav-link active" data-page="stok">Model Stokları</div>
+            <div class="nav-link" data-page="siparis">Mağaza Satışları</div>
+            <div class="nav-link" data-page="uretim">Üretimler</div>
+            <div class="nav-link" data-page="hammadde">Hammadde Analiz</div>
+        </nav>
+
+        <div class="mt-auto pt-4 border-top">
+            <a href="/index.html" class="nav-link text-danger fw-bold">
+                <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="page-header">
+            <h3 id="page-title">Model Stokları</h3>
+            
+            <div class="d-flex gap-2 align-items-center">
+                <button id="btn-yeni-uretim" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uretimModal" style="display: none; border-radius: 20px;">
+                    <i class="fas fa-plus me-2"></i>Yeni Üretim Ekle
+                </button>
+
+                <button id="btn-yeni-hammadde" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#hammaddeModal" style="display: none; border-radius: 20px;">
+                    <i class="fas fa-boxes me-2"></i>Stok Girişi Yap
+                </button>
+
+                <div class="search-box">
+                    <input id="search-input" type="text" class="form-control" placeholder="Ara...">
+                </div>
+
+                <button id="toggle-critical" class="btn btn-light" style="border-radius: 20px;">Kritik Olanlar</button>
+            </div>
+        </div>
+
+        <div id="grafik-alani" class="row mb-4" style="display: none;">
+            <div class="col-md-4">
+                <div class="card-custom h-100 d-flex flex-column align-items-center justify-content-center text-center">
+                    <h6 class="text-secondary fw-bold mb-3">Stok Dağılımı</h6>
+                    <div style="height: 180px; width: 180px; position: relative;">
+                        <canvas id="kritikStokChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row h-100">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card-custom h-100 d-flex flex-column justify-content-center align-items-center text-primary bg-primary bg-opacity-10 border border-primary border-opacity-25">
+                            <i class="fas fa-layer-group fa-2x mb-2"></i>
+                            <h3 class="fw-bold mb-0" id="stat-toplam-model">-</h3>
+                            <small class="text-muted">Toplam Model</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card-custom h-100 d-flex flex-column justify-content-center align-items-center text-success bg-success bg-opacity-10 border border-success border-opacity-25">
+                            <i class="fas fa-boxes fa-2x mb-2"></i>
+                            <h3 class="fw-bold mb-0" id="stat-toplam-urun">-</h3>
+                            <small class="text-muted">Toplam Ürün</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-custom h-100 d-flex flex-column justify-content-center align-items-center text-danger bg-danger bg-opacity-10 border border-danger border-opacity-25">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                            <h5 class="fw-bold mb-0 text-center" id="stat-en-kritik">-</h5>
+                            <small class="text-muted">En Kritik Ürün</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="hammadde-grafik-alani" class="card-custom mb-4" style="display: none;">
+            <h5 class="card-title text-danger fw-bold mb-3">
+                <i class="fas fa-triangle-exclamation me-2"></i>Kritik Hammadde Uyarıları
+            </h5>
+            <div style="height: 300px; width: 100%;">
+                <canvas id="hammaddeChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card-custom">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead id="table-head">
+                        <tr><th>Yükleniyor...</th></tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr>
+                            <td colspan="8" class="text-center py-4">Veriler yükleniyor...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="uretimModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yeni Üretim Kaydı</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-uretim">
+                        <div class="mb-3">
+                            <label class="form-label">Model Seçin</label>
+                            <select id="select-model" class="form-select" required>
+                                <option value="">Yükleniyor...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Üretilen Adet</label>
+                            <input type="number" id="input-adet" class="form-control" min="1" value="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tarih</label>
+                            <input type="date" id="input-tarih" class="form-control" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="uretimKaydet()">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="hammaddeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Hammadde Stok Girişi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-hammadde">
+                        <div class="mb-3">
+                            <label class="form-label">Hammadde Seçin</label>
+                            <select id="select-hammadde" class="form-select" required>
+                                <option value="">Yükleniyor...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Giriş Miktarı</label>
+                            <div class="input-group">
+                                <input type="number" id="input-hammadde-adet" class="form-control" min="1" step="0.01" required>
+                                <span class="input-group-text" id="hammadde-birim">-</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tarih</label>
+                            <input type="date" id="input-hammadde-tarih" class="form-control" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-success" onclick="hammaddeKaydet()">Stok Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/atolye.js"></script>
+</body>
+</html>
