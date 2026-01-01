@@ -4,11 +4,6 @@ import { getUrunDetay, getBenzerUrunler, urunAra } from "../controllers/urunCont
 
 const router = express.Router();
 
-/* ==============================================
-   1. SABİT (STATIC) ROTALAR - (Her zaman en üstte!)
-   ============================================== */
-
-// Vitrin (En pahalı 10 ürün)
 router.get("/vitrin", async (req, res) => {
   try {
     const query = `
@@ -25,22 +20,11 @@ router.get("/vitrin", async (req, res) => {
     res.status(500).json({ error: "Vitrin yüklenemedi" });
   }
 });
-
-// Benzer ürünler - (/:id'den yukarı aldık ki çakışmasın)
 router.get("/benzer", getBenzerUrunler);
 
 
-/* ==============================================
-   2. DİNAMİK ROTALAR - (ID Parametresi alanlar)
-   ============================================== */
-
-// Ürün Detayı
 router.get("/:id", getUrunDetay);
 
-
-/* ==============================================
-   3. GENEL LİSTELEME VE FİLTRELEME
-   ============================================== */
 
 router.get("/", async (req, res) => {
   try {
