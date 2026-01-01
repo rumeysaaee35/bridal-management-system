@@ -1,8 +1,5 @@
 import pool from "../config/db.js";
 
-/* =====================
-   SEPETTEN SATIŞ EKLE
-===================== */
 export const satisSepettenEkle = async (req, res) => {
   try {
     const {
