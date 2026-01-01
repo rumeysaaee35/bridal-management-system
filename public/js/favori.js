@@ -1,9 +1,6 @@
-// js/favori.js
 
-// js/favori.js
 async function favorileriGetir() {
     const user = JSON.parse(localStorage.getItem('user'));
-    // Şemana göre 'telefon' alanını alıyoruz
     const tel = user ? user.telefon : ''; 
 
     if (!tel) {
@@ -30,8 +27,6 @@ async function favorileriGetir() {
         }
     } catch (err) { console.error(err); }
 }
-
-    // 4. Ürünleri Döngüyle Ekrana Bas
     favoriler.forEach(urun => {
         const urunHTML = `
             <div class="urun-card" style="border:1px solid #ddd; padding:10px; margin:10px; width: 200px; display:inline-block; text-align:center;">
@@ -51,20 +46,11 @@ async function favorileriGetir() {
         listContainer.innerHTML += urunHTML;
     });
 
-
-// Favoriler sayfasından silme fonksiyonu
 window.favoridenSil = function(baslik) {
     let favoriler = JSON.parse(localStorage.getItem('favoriler')) || [];
-    
-    // İsme göre bul ve sil (ID kullanıyorsan ID'ye çevir)
     favoriler = favoriler.filter(item => item.title !== baslik);
-    
-    // Güncelle
     localStorage.setItem('favoriler', JSON.stringify(favoriler));
     
-    // Ekranı yenile
     favorileriGetir();
 };
-
-// Sayfa yüklendiğinde çalıştır
 document.addEventListener('DOMContentLoaded', favorileriGetir);
