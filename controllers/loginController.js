@@ -1,7 +1,6 @@
 import pool from "../config/db.js";
 
 export async function register(req, res) {
-    // Frontend formundan gelen veriler
     const { ad, soyad, email, telefon, sifre } = req.body;
 
     try {
@@ -53,7 +52,6 @@ export async function login(req, res) {
                 } 
             });
         } else {
-            // Hatalı Giriş
             res.status(401).json({ success: false, message: "E-Posta adresi veya şifre yanlış!" });
         }
 
