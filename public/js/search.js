@@ -1,7 +1,5 @@
 
 let allProducts = [];
-
-// SAYFA AÇILINCA TÜM ÜRÜNLERİ ÇEK
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch(API_URL);
@@ -10,8 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Ürünler çekilemedi:", err);
   }
 });
-
-// ARAMA
 function searchProduct() {
   const q = document.getElementById("searchInput").value.toLowerCase();
   const box = document.getElementById("searchResults");
@@ -40,7 +36,6 @@ function searchProduct() {
   });
 }
 
-// ÜRÜN DETAY
 function goDetail(id) {
   window.location.href = `product.html?id=${id}`;
 }
