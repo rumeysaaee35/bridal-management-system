@@ -1,6 +1,3 @@
-
-
-
 :root {
   --bg: #f3f6fb;
   --panel: #ffffff;
@@ -220,9 +217,6 @@ html, body {
   .sidebar { display: none; }
 }
 
-/* =====================
-   KRİTİK STOK DASHBOARD
-===================== */
 
 .dashboard {
   background: #ffffff;
@@ -237,7 +231,6 @@ html, body {
   transition: all 0.3s ease;
 }
 
-/* Dashboard başlık (istersen ekleyebilirsin) */
 .dashboard-title {
   font-size: 15px;
   font-weight: 600;
@@ -245,18 +238,15 @@ html, body {
   margin-bottom: 12px;
 }
 
-/* Chart alanı */
 #kritikChart {
   width: 100% !important;
   min-height: 260px;
 }
 
-/* Kritik aktifken tablo ile araya boşluk */
 #stok-card .dashboard + .table {
   margin-top: 12px;
 }
 
-/* Dashboard boş mesaj */
 .dashboard p {
   margin: 0;
   padding: 24px 0;
@@ -265,7 +255,6 @@ html, body {
   font-size: 14px;
 }
 
-/* Hafif animasyon (görünürken) */
 .dashboard {
   animation: fadeSlideIn 0.35s ease;
 }
@@ -281,36 +270,25 @@ html, body {
   }
 }
 
-/* =====================
-   HAMMADDE ANALİZ – NET SIRALAMA
-===================== */
-
 #analiz-card {
   display: flex;
   flex-direction: column;
 }
 
-/* 1️⃣ Hammadde giriş formu */
 #analiz-card > #giris-form {
   order: 1;
   margin-bottom: 24px;
 }
 
-/* 2️⃣ Hammadde giriş kayıtları (FORMUN HEMEN ALTINDA) */
 #analiz-card > #giris-kayit-table {
   order: 2;
   margin-bottom: 32px;
 }
-
-/* 3️⃣ Malzeme analiz tablosu (EN ALTTA) */
 #analiz-card > #malzeme-table {
   order: 3;
 }
 
 
-/* =====================
-   KRİTİK STOK BADGE
-===================== */
 
 .badge {
   background: #ef4444;
