@@ -16,7 +16,6 @@ fetch("header.html")
   .then(r => r.text())
   .then(h => {
     document.getElementById("header").innerHTML = h;
-    // Header yüklendikten sonra auth kontrolü (varsa) çalışsın
     if (typeof initAuth === "function") initAuth();
   });
 </script>
@@ -40,9 +39,7 @@ fetch("header.html")
 <script src="js/login.js"></script> <script src="js/favori.js"></script>
 
 <script>
-  // Sayfa yüklendiğinde favorileri çek
   document.addEventListener("DOMContentLoaded", () => {
-    // favori.js içinde bu fonksiyonun olduğundan emin ol
     if (typeof favorileriGetir === "function") {
         favorileriGetir();
     }
