@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUrunlerSelect(); 
 });
 
-// Sekme Geçişleri
 function switchTab(id, el) {
     document.querySelectorAll('.tab-section').forEach(e => e.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
@@ -20,8 +19,6 @@ function switchTab(id, el) {
     if(id === 'randevular') loadRandevular();
     if(id === 'stok') loadStok();
 }
-
-// --- DASHBOARD ---
 async function loadDashboard() {
     try {
         const yilSelect = document.getElementById('yilFiltresi');
@@ -30,13 +27,11 @@ async function loadDashboard() {
         const res = await fetch(`/api/yonetici/dashboard-stats?yil=${secilenYil}`);
         const data = await res.json();
         
-        // Kartlar
         document.getElementById('stat-ciro').innerText = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(data.kartlar.toplam_ciro || 0);
         document.getElementById('stat-satis').innerText = (data.kartlar.toplam_satis + data.kartlar.toplam_kiralama);
         document.getElementById('stat-randevu').innerText = data.kartlar.toplam_randevu;
         document.getElementById('stat-stok').innerText = data.kartlar.kritik_stok;
 
-        // Son Hareketler Tablosu (RENKLENDİRME BURADA)
         document.getElementById('son-hareketler-body').innerHTML = data.tablo.map(i => {
             let badgeClass = 'bg-secondary'; // Varsayılan: Bekliyor
             const durum = i.siparis_durumu || 'Bekliyor';
@@ -55,8 +50,6 @@ async function loadDashboard() {
                 <td><span class="badge ${badgeClass}">${durum}</span></td>
             </tr>`;
         }).join('');
-
-        // Yıl Filtresi
         if(yilSelect && yilSelect.options.length <= 1 && data.yillar && data.yillar.length > 0) {
             const mevcut = yilSelect.value;
             yilSelect.innerHTML = "";
@@ -76,7 +69,6 @@ async function loadDashboard() {
     } catch (e) { console.error("Dashboard hatası:", e); }
 }
 
-// --- SATIŞ ANALİZİ (LİSTE) ---
 async function loadSatislar() { 
     const r = await fetch("/api/yonetici/satislar"); 
     const d = await r.json(); 
@@ -102,8 +94,6 @@ async function loadSatislar() {
         </tr>`;
     }).join(''); 
 }
-
-// --- GRAFİK FONKSİYONLARI ---
 function drawIncome(data) {
     const ctx = document.getElementById('incomeChart'); if(!ctx) return;
     if(incomeChart) incomeChart.destroy();
@@ -128,8 +118,6 @@ function drawSeason(data) {
     seasonalityChart = new Chart(ctx, { type: 'line', data: { labels: lbl, datasets: [{ label: 'Müşteri', data: val, borderColor: '#3b82f6', fill: true, tension: 0.4 }] }, options: { maintainAspectRatio: false } });
 }
 
-// --- DİĞER FONKSİYONLAR ---
-// --- RANDEVULAR (GÜNCELLENDİ ✅) ---
 async function loadRandevular() { 
     try {
         const r = await fetch("/api/yonetici/randevular"); 
@@ -175,21 +163,18 @@ function stokTablo(d) {
         let stokColor = 'text-dark';
 
         if (stok <= sinir) {
-            // KRİTİK (Kırmızı)
             stokColor = 'text-danger fw-bold';
             statusBadge = `
                 <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-2 w-100">
                     <i class="fas fa-exclamation-triangle me-1"></i> KRİTİK SEVİYE
                 </span>`;
         } else if (stok <= sinir + 5) {
-            // AZALIYOR (Sarı)
             stokColor = 'text-warning fw-bold';
             statusBadge = `
                 <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-3 py-2 w-100">
                     <i class="fas fa-clock me-1"></i> STOK AZALIYOR
                 </span>`;
         } else {
-            // GÜVENLİ (Yeşil)
             statusBadge = `
                 <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 w-100">
                     <i class="fas fa-check-circle me-1"></i> STOK GÜVENLİ
