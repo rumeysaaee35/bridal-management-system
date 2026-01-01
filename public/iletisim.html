@@ -19,9 +19,6 @@ fetch("header.html")
   .then(html => document.getElementById("header").innerHTML = html);
 </script>
 
-
-
-<!-- ================= İLETİŞİM ================= -->
 <section class="page-section">
     <h1 class="page-title">İletişim</h1>
 
@@ -63,13 +60,11 @@ fetch("header.html")
     </div>
 </section>
 
-<!-- LOGIN MODAL -->
 <div id="loginModal" class="login-modal hidden">
   <div class="login-box">
 
     <span class="close-modal" id="closeLogin">&times;</span>
 
-    <!-- GİRİŞ -->
     <div id="loginBox">
       <h3>Giriş Yap</h3>
       <input type="email" id="loginEmail" placeholder="Email">
@@ -85,8 +80,6 @@ fetch("header.html")
         <a href="#" id="openRegister">Kayıt ol</a>
       </p>
     </div>
-
-    <!-- KAYIT -->
     <div id="registerBox" class="hidden">
       <h3>Kayıt Ol</h3>
       <input id="registerAd" placeholder="Ad">
@@ -99,8 +92,6 @@ fetch("header.html")
         <a href="#" id="openLogin">Girişe dön</a>
       </p>
     </div>
-
-    <!-- ŞİFREMİ UNUTTUM -->
     <div id="forgotBox" class="hidden">
       <h3>Şifre Yenile</h3>
       <input type="email" id="forgotEmail" placeholder="Email">
