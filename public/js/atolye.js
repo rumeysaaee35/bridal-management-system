@@ -1,17 +1,14 @@
-// --- GLOBAL DEĞİŞKENLER ---
+
 let stokChart = null; 
-let hammaddeChart = null; // Yeni eklenen grafik değişkeni
+let hammaddeChart = null; 
 let isCriticalFilter = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     loadStoklar(); // Varsayılan açılış
-    
-    // Tarih kutularına bugünü ata
     const today = new Date().toISOString().split('T')[0];
     const dateInputs = document.querySelectorAll('input[type="date"]');
     dateInputs.forEach(input => input.value = today);
 
-    // --- ARAMA KUTUSU ---
     const searchInput = document.getElementById('search-input');
     if(searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -24,15 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Menü Yönetimi
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             if(e.target.getAttribute('href')) return; 
 
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             e.target.classList.add('active');
-            
-            // Sekme değişince arama kutusunu temizle
+        
             if(searchInput) searchInput.value = '';
 
             const page = e.target.getAttribute('data-page');
@@ -43,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Modallar
     const uretimModal = document.getElementById('uretimModal');
     if(uretimModal) uretimModal.addEventListener('show.bs.modal', loadUretimOptions);
 
@@ -62,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- EKRAN YÖNETİMİ (Görünürlük Ayarları) ---
 function toggleElements(mode) {
     const stokGrafik = document.getElementById('grafik-alani');
     const hammaddeGrafik = document.getElementById('hammadde-grafik-alani'); // Yeni grafik alanı
@@ -71,7 +64,6 @@ function toggleElements(mode) {
     const kritikBtn = document.getElementById('toggle-critical');
     const searchBox = document.querySelector('.search-box');
 
-    // Önce hepsini gizle
     if(stokGrafik) stokGrafik.style.display = 'none';
     if(hammaddeGrafik) hammaddeGrafik.style.display = 'none';
     if(uretimBtn) uretimBtn.style.display = 'none';
@@ -79,7 +71,6 @@ function toggleElements(mode) {
     if(kritikBtn) kritikBtn.style.display = 'none';
     if(searchBox) searchBox.style.display = 'block';
 
-    // İlgili moda göre aç
     if(mode === 'stok') {
         if(stokGrafik) stokGrafik.style.display = 'flex';
         if(kritikBtn) kritikBtn.style.display = 'block';
@@ -94,18 +85,13 @@ function toggleElements(mode) {
     }
 }
 
-// =======================
-//   HAMMADDE İŞLEMLERİ
-// =======================
 async function loadHammadde() {
     setTitle("Hammadde İhtiyaç Analizi");
     toggleElements('hammadde');
     setTableHead(['Model', 'Gerekli Hammadde', 'Birim İhtiyaç', 'Depo Stoğu', 'Durum']);
     
-    // Grafiği Yükle
     loadHammaddeGrafik(); 
 
-    // Tabloyu Yükle
     try {
         const res = await fetch('/api/atolye/malzeme-giderleri');
         const data = await res.json();
@@ -123,7 +109,6 @@ async function loadHammadde() {
     } catch (err) { showError(err); }
 }
 
-// YENİ: Kritik Hammadde Grafiğini Çizen Fonksiyon 
 async function loadHammaddeGrafik() {
     try {
         const res = await fetch('/api/atolye/hammadde-grafik');
@@ -205,9 +190,6 @@ async function hammaddeKaydet() {
     } catch (e) { alert("Hata"); }
 }
 
-// =======================
-//   DİĞER SAYFALAR
-// =======================
 async function loadStoklar() {
     setTitle("Model Stokları");
     toggleElements('stok'); 
@@ -281,7 +263,6 @@ async function loadUretimler() {
     } catch (err) { showError(err); }
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
 async function loadUretimOptions() {
     const select = document.getElementById('select-model');
     select.innerHTML = '<option value="">Yükleniyor...</option>';
