@@ -94,7 +94,6 @@ export const getUrunById = async (req, res) => {
 export async function getUrunDetay(req, res) {
   const { id } = req.params;
   try {
-    // Ürün bilgilerini çek
     const [urun] = await pool.query("SELECT * FROM urunler WHERE model_id = ?", [id]);
     
     if (urun.length === 0) return res.status(404).json({ error: "Ürün bulunamadı" });
@@ -136,7 +135,7 @@ export async function getBenzerUrunler(req, res) {
 
 
 export const urunAra = async (req, res) => {
-    const { q } = req.query; // Arama kelimesi
+    const { q } = req.query; 
     try {
         const sql = `
             SELECT model_id, model_ad, satis_fiyat, ana_resim 
