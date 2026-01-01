@@ -5,7 +5,6 @@ export async function register(req, res) {
     const { ad, soyad, email, telefon, sifre } = req.body;
 
     try {
-        // 1. KONTROL: Bu telefon veya email zaten kayıtlı mı?
         const [varMi] = await pool.query(
             "SELECT * FROM kullanicilar WHERE telefon = ? OR email = ?", 
             [telefon, email]
