@@ -1,6 +1,5 @@
 import pool from "../config/db.js";
 
-// 1. SEÇİLEN GÜNDEKİ DOLU SAATLERİ GETİR
 export async function getDoluSaatler(req, res) {
     const { tarih } = req.query; 
     try {
@@ -15,14 +14,10 @@ export async function getDoluSaatler(req, res) {
         res.status(500).json({ error: "Saatler alınamadı" });
     }
 }
-
-// 2. YENİ RANDEVU OLUŞTUR (DÜZELTİLDİ)
 export async function createRandevu(req, res) {
-    // Model adını şimdilik kullanmıyoruz çünkü tabloda yeri yok.
     const { ad, soyad, telefon_no, email, tarih, saat } = req.body;
 
     try {
-        // 1. Doluluk Kontrolü
         const [kontrol] = await pool.query(
             "SELECT * FROM randevu WHERE randevu_tarih = ? AND saat = ?",
             [tarih, saat]
@@ -32,8 +27,6 @@ export async function createRandevu(req, res) {
             return res.status(400).json({ success: false, message: "Bu saat maalesef az önce doldu!" });
         }
 
-        // 2. Kayıt (NOTLAR SÜTUNU KALDIRILDI)
-        // Veritabanı şemana birebir uyumlu SQL:
         await pool.query(
             `INSERT INTO randevu (musteri_ad, musteri_soyad, telefon_no, musteriMail, randevu_tarih, saat) 
              VALUES (?, ?, ?, ?, ?, ?)`,
