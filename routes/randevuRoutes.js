@@ -3,16 +3,11 @@ import { getDoluSaatler, createRandevu } from "../controllers/randevuController.
 
 const router = express.Router();
 
-// Dolu saatleri sormak için
-router.get("/dolu-saatler", getDoluSaatler);
-
-// Randevu kaydetmek için
+router.get("/dolu-saatler", 
 router.post("/olustur", createRandevu);
 
 
 export default router;
-
-// routes/randevuRoutes.js içindeki oluşturma (insert) kısmı
 router.post("/olustur", async (req, res) => {
     const { musteri_ad, musteri_soyad, musteriMail, telefon_no, randevu_tarih, saat, notlar } = req.body;
 
