@@ -57,12 +57,6 @@ export const getUrunler = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
 export const getUrunById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -97,7 +91,6 @@ export const getUrunById = async (req, res) => {
 };
 
 
-// 1. TEK ÜRÜN DETAYINI VE FOTOLARINI GETİR
 export async function getUrunDetay(req, res) {
   const { id } = req.params;
   try {
@@ -106,12 +99,11 @@ export async function getUrunDetay(req, res) {
     
     if (urun.length === 0) return res.status(404).json({ error: "Ürün bulunamadı" });
 
-    // Ürüne ait fotoğrafları çek
     const [fotolar] = await pool.query("SELECT path FROM photos WHERE model_id = ?", [id]);
 
     res.json({
         ...urun[0],
-        fotolar: fotolar.map(f => f.path) // Sadece dosya yollarını dizi olarak dön
+        fotolar: fotolar.map(f => f.path) 
     });
 
   } catch (err) {
@@ -120,11 +112,9 @@ export async function getUrunDetay(req, res) {
   }
 }
 
-// 2. BENZER ÜRÜNLERİ GETİR (Aynı renk veya yakın fiyat)
 export async function getBenzerUrunler(req, res) {
     const { id, renk, fiyat } = req.query;
     try {
-        // Kendisi hariç, aynı renk VEYA fiyatı %20 yakın olanları getir
         const query = `
             SELECT model_id, model_ad, satis_fiyat, 
             (SELECT path FROM photos WHERE model_id = urunler.model_id LIMIT 1) as resim
@@ -144,7 +134,6 @@ export async function getBenzerUrunler(req, res) {
     }
 }
 
-// controllers/urunController.js
 
 export const urunAra = async (req, res) => {
     const { q } = req.query; // Arama kelimesi
