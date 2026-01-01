@@ -3,9 +3,7 @@ import pool from "../config/db.js";
 
 const router = express.Router();
 
-// YENİ SATIŞ EKLE (Sepeti Onayla)
 router.post("/ekle", async (req, res) => {
-  // Frontend'den gelen veriler: { user_id: 1, sepet: [{model_id: 2, adet: 1, fiyat: 5000}, ...] }
   const { user_id, sepet } = req.body;
 
   if (!sepet || sepet.length === 0) {
@@ -14,9 +12,8 @@ router.post("/ekle", async (req, res) => {
 
   const connection = await pool.getConnection();
   try {
-    await connection.beginTransaction(); // İşlemi başlat (Hata olursa geri alacak)
+    await connection.beginTransaction(); 
 
-    // Sepetteki her ürün için satış kaydı oluştur
     for (const urun of sepet) {
       const query = `
         INSERT INTO satislar (user_id, model_id, adet, birim_fiyat, toplam_tutar, satis_tarihi)
@@ -31,11 +28,11 @@ router.post("/ekle", async (req, res) => {
       ]);
     }
 
-    await connection.commit(); // Her şey yolundaysa kaydet
+    await connection.commit(); 
     res.json({ success: true, message: "Siparişiniz alındı!" });
 
   } catch (err) {
-    await connection.rollback(); // Hata varsa işlemleri iptal et
+    await connection.rollback(); 
     console.error("Satış Hatası:", err);
     res.status(500).json({ success: false, message: "Satış işlemi başarısız." });
   } finally {
@@ -43,7 +40,6 @@ router.post("/ekle", async (req, res) => {
   }
 });
 
-// TÜM SATIŞLARI GETİR (Yönetici Paneli)
 router.get("/", async (req, res) => {
   try {
     const query = `
