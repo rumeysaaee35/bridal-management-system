@@ -10,19 +10,14 @@
 </head>
 
 <body>
-
-<!-- HEADER -->
 <div id="header"></div>
  <script>
  fetch("header.html")
   .then(res => res.text())
   .then(html => document.getElementById("header").innerHTML = html);
  </script>
-
-<!-- ================= MAĞAZA ================= -->
 <div class="shop-container">
 
-    <!-- SOL FİLTRE -->
     <aside class="filter-panel">
 
         <div class="filter-block">
@@ -67,12 +62,10 @@
 
     </aside>
 
-    <!-- ÜRÜNLER -->
     <section id="urunListesi" class="urun-container"></section>
 
 </div>
 
-<!-- ================= JS ================= -->
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
