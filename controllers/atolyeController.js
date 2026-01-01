@@ -1,11 +1,9 @@
 import pool from '../config/db.js';
 
-// --- 1. SAĞLIK KONTROLÜ ---
 export const health = async (req, res) => {
     res.status(200).json({ message: "Atölye API çalışıyor." });
 };
 
-// --- 2. MODEL STOKLARI ---
 export const getModelStoklari = async (req, res) => {
     try {
         const sql = `
@@ -27,7 +25,6 @@ export const getModelStoklari = async (req, res) => {
     }
 };
 
-// --- 3. MAĞAZA SATIŞLARI ---
 export const getMagazaSatislari = async (req, res) => {
     try {
         const sql = `
@@ -52,8 +49,6 @@ export const getMagazaSatislari = async (req, res) => {
         res.status(500).json({ error: error.message, sqlMessage: error.sqlMessage });
     }
 };
-
-// --- 4. ÜRETİM LİSTESİ (Geçmiş Üretimler) ---
 export const getUretimler = async (req, res) => {
     try {
         const sql = `
@@ -75,7 +70,6 @@ export const getUretimler = async (req, res) => {
     }
 };
 
-// --- 5. YENİ ÜRETİM EKLE ---
 export const addUretim = async (req, res) => {
     const { model_id, adet, tarih } = req.body;
     const connection = await pool.getConnection();
@@ -94,9 +88,6 @@ export const addUretim = async (req, res) => {
     } catch (e) { await connection.rollback(); res.status(500).json({error: e.message}); } finally { connection.release(); }
 };
 
-// --- 6. HAMMADDE ANALİZİ (GEREKLİ vs STOKTAKİ) ---
-// --- 6. HAMMADDE ANALİZİ (DÜZELTİLMİŞ) ---
-// --- 6. HAMMADDE ANALİZİ (GÜNCELLENMİŞ VE DÜZELTİLMİŞ) ---
 export const getMalzemeGiderleri = async (req, res) => {
     try {
         const sql = `
@@ -129,7 +120,6 @@ export const getMalzemeGiderleri = async (req, res) => {
     }
 };
 
-// --- 7. KRİTİK STOK ORANI (Grafik İçin) ---
 export const getKritikStokOrani = async (req, res) => {
     try {
         const sql = `
@@ -148,8 +138,6 @@ export const getKritikStokOrani = async (req, res) => {
         res.status(500).json({ error: "Grafik verisi hatası" });
     }
 };
-
-// --- 8. SİPARİŞ DURUMU GÜNCELLEME ---
 export const updateSiparisDurumu = async (req, res) => {
     const { satis_id, yeni_durum } = req.body;
     try {
@@ -161,9 +149,6 @@ export const updateSiparisDurumu = async (req, res) => {
 };
 
 
-// ... Diğer fonksiyonların en altına ekle ...
-
-// --- 9. HAMMADDE LİSTESİ (Dropdown İçin) ---
 export const getHammaddeListesi = async (req, res) => {
     try {
         const sql = `
@@ -184,7 +169,6 @@ export const getHammaddeListesi = async (req, res) => {
     }
 };
 
-// --- 10. YENİ HAMMADDE GİRİŞİ (Stok Ekleme) ---
 export const addHammaddeGiris = async (req, res) => {
     const { stok_id, miktar, tarih } = req.body;
     const connection = await pool.getConnection();
@@ -192,13 +176,11 @@ export const addHammaddeGiris = async (req, res) => {
     try {
         await connection.beginTransaction();
 
-        // 1. Giriş kaydını loglara ekle (hammadde_girisleri tablosu)
         await connection.query(`
             INSERT INTO hammadde_girisleri (stok_id, giris_miktar, giris_tarihi) 
             VALUES (?, ?, ?)
         `, [stok_id, miktar, tarih]);
 
-        // 2. Ana stok miktarını artır (hammadde_stok tablosu)
         await connection.query(`
             UPDATE hammadde_stok 
             SET mevcut_adet = mevcut_adet + ? 
@@ -217,11 +199,8 @@ export const addHammaddeGiris = async (req, res) => {
     }
 };
 
-// --- HAMMADDE KRİTİK STOK GRAFİĞİ ---
-// --- HAMMADDE KRİTİK STOK GRAFİĞİ (ŞEMAYA GÖRE FİNAL) ---
 export async function getHammaddeKritikGrafik(req, res) {
     try {
-        // SQL Sorgusu: Şemadaki gerçek sütun isimlerine göre güncellendi
         const query = `
             SELECT 
                 CONCAT(h.hammadde_ad, ' (', s.renk, ')') as hammadde_ad, 
