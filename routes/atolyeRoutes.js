@@ -8,7 +8,7 @@ import {
     getHammaddeListesi,
     addHammaddeGiris,
     getMalzemeGiderleri,
-    getKritikStokOrani ,// <-- YENİ: Bunu ekle
+    getKritikStokOrani ,
     updateSiparisDurumu,
     getHammaddeKritikGrafik
 } from '../controllers/atolyeController.js';
@@ -22,10 +22,10 @@ router.get('/uretimler', getUretimler);
 router.post('/uretim', addUretim);
 router.get('/malzeme-giderleri', getMalzemeGiderleri);
 router.get('/malzeme-giderleri', getMalzemeGiderleri);
-router.get('/kritik-stok-orani', getKritikStokOrani); // <-- YENİ: Bunu ekle
+router.get('/kritik-stok-orani', getKritikStokOrani); 
 router.post('/siparis-durum-guncelle', updateSiparisDurumu);
-router.get('/hammadde-listesi', getHammaddeListesi); // Dropdown için
-router.post('/hammadde-giris', addHammaddeGiris);    // Kayıt için
+router.get('/hammadde-listesi', getHammaddeListesi); 
+router.post('/hammadde-giris', addHammaddeGiris);
 router.get('/hammadde-grafik', getHammaddeKritikGrafik);
 
 export default router;
