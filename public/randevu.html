@@ -18,16 +18,12 @@
         
         label { display: block; margin-bottom: 8px; font-weight: bold; }
         input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        
-        /* SAAT SEÇİMİ IZGARASI */
         .time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px; }
         .time-btn { 
             padding: 10px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer; transition: 0.2s; 
         }
         .time-btn:hover:not(:disabled) { background: #333; color: white; }
         .time-btn.selected { background: #333; color: white; border-color: #333; }
-        
-        /* DOLU SAAT STİLİ */
         .time-btn:disabled { background: #ffebee; color: #c62828; border-color: #ffcdd2; cursor: not-allowed; text-decoration: line-through; }
 
         .submit-btn { 
