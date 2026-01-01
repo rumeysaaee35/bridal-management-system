@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. GLOBAL RESET & TYPOGRAPHY & ANIMATIONS
-   ========================================================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +7,7 @@
 
 body {
     margin: 0;
-    padding-top: 90px; /* Header yüksekliği */
+    padding-top: 90px; 
     font-family: 'Times New Roman', serif;
     background: linear-gradient(135deg, #ffffff, #fdfbfb, #ffffff);
     background-size: 400% 400%;
@@ -29,7 +27,6 @@ ul {
     list-style: none;
 }
 
-/* --- Animasyonlar --- */
 @keyframes bgMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -55,8 +52,6 @@ ul {
     from { transform: scale(.9); opacity: 0; }
     to   { transform: scale(1); opacity: 1; }
 }
-
-/* Background Blur Effect */
 .background-effects {
     position: fixed;
     top: 0; left: 0;
@@ -66,7 +61,6 @@ ul {
     z-index: -1;
 }
 
-/* Fade Up Helper */
 .fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -81,9 +75,6 @@ ul {
     display: none !important;
 }
 
-/* ==========================================================================
-   2. HEADER (SABİT ÜST MENÜ)
-   ========================================================================== */
 .header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -138,8 +129,6 @@ ul {
     transform: scale(1.15);
     color: #C59A6D;
 }
-
-/* Genel Header Metinleri (Diğer sayfalar için) */
 header {
     text-align: center;
     color: #6d4c71;
@@ -177,9 +166,6 @@ header p { font-size: 18px; }
 }
 
 
-/* ==========================================================================
-   3. ANA SAYFA (HERO & CAROUSEL & FEATURED)
-   ========================================================================== */
 .hero {
     height: 95vh;
     width: 100%;
@@ -227,7 +213,6 @@ header p { font-size: 18px; }
 }
 .hero-btn:hover { background: #000; color: #fff; }
 
-/* --- Carousel / Featured Sections --- */
 .fav-section, .featured {
     margin-top: 60px;
     padding: 40px;
@@ -281,7 +266,6 @@ header p { font-size: 18px; }
 .left { left: 0; }
 .right { right: 0; }
 
-/* Kartlar (Carousel ve Featured İçin Ortak) */
 .card, .featured-card, .similar-card {
     min-width: 260px;
     background: #fff;
@@ -291,7 +275,7 @@ header p { font-size: 18px; }
     text-decoration: none;
     color: black;
     transition: transform 0.3s ease;
-    background: transparent !important; /* Sonradan eklenen şeffaflık isteği */
+    background: transparent !important; 
 }
 
 .card:hover, .featured-card:hover, .similar-card:hover {
@@ -306,10 +290,6 @@ header p { font-size: 18px; }
     border-radius: 16px;
     display: block;
 }
-
-/* ==========================================================================
-   4. MAĞAZA / ÜRÜN LİSTELEME
-   ========================================================================== */
 .shop-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -358,7 +338,6 @@ header p { font-size: 18px; }
 .filter-panel button:not(.reset) { background: #111; color: #fff; }
 .filter-panel .reset { background: #eee; color: #333; }
 
-/* Renk Filtresi */
 .color-filter {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -374,7 +353,6 @@ header p { font-size: 18px; }
 .color-filter span:hover { transform: scale(1.1); }
 .color-filter span.active { outline: 2px solid #111; }
 
-/* Ürün Grid ve Kartları */
 #urunListesi, .urun-container, .urun-grid {
     flex: 1;
     display: grid;
@@ -408,7 +386,7 @@ header p { font-size: 18px; }
     transition: transform 0.5s ease;
     position: relative;
     z-index: 5;
-    pointer-events: none; /* Kalp butonuna tıklamayı engellememesi için */
+    pointer-events: none;
 }
 
 .urun-kutu:hover img { transform: scale(1.03); }
@@ -449,7 +427,6 @@ header p { font-size: 18px; }
 }
 .urun-kutu .btn:hover { background: #333; transform: translateY(-2px); }
 
-/* Favori Kalp Butonu */
 .fav-btn {
     position: absolute;
     top: 12px; right: 12px;
@@ -463,9 +440,6 @@ header p { font-size: 18px; }
 }
 .fav-btn.active i { color: red; }
 
-/* ==========================================================================
-   5. ÜRÜN DETAY SAYFASI
-   ========================================================================== */
 .product-page, .product-wrapper, .product-detail-wrapper {
     max-width: 1200px;
     margin: 40px auto;
@@ -557,7 +531,6 @@ header p { font-size: 18px; }
 }
 .color-options span.active { border-color: #b8925e; }
 
-/* Aksiyon Butonları */
 .action-buttons {
     display: flex;
     gap: 15px;
@@ -592,11 +565,6 @@ header p { font-size: 18px; }
     max-width: 1200px;
     margin: 80px auto;
 }
-
-/* ==========================================================================
-   6. SEPET & ÖDEME & ONAY SAYFALARI
-   ========================================================================== */
-/* Sepet */
 .sepet-wrapper {
     display: flex;
     max-width: 1200px;
@@ -708,8 +676,6 @@ input, select {
     border: 1px solid #eee;
     border-radius: 10px;
 }
-
-/* Onay Sayfası */
 .onay-container {
     height: 100vh;
     display: flex;
@@ -749,10 +715,6 @@ input, select {
     margin-top: 20px;
 }
 
-/* ==========================================================================
-   7. DİĞER SAYFALAR (HAKKIMIZDA, İLETİŞİM, BLOG, RANDEVU, ARAMA)
-   ========================================================================== */
-/* Hakkımızda */
 .about-container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -777,7 +739,6 @@ input, select {
 }
 .about-text h2 { color: #8a6e95; font-size: 32px; margin-bottom: 15px; }
 
-/* Hizmetler */
 .services-section {
     text-align: center;
     padding: 100px 20px;
@@ -802,7 +763,6 @@ input, select {
 .service-box:hover { transform: translateY(-8px); }
 .service-box .icon { font-size: 45px; margin-bottom: 15px; color: #7d4c88; }
 
-/* Blog */
 .page-section, .blog-content-section {
     max-width: 1200px;
     margin: 40px auto;
@@ -827,7 +787,6 @@ input, select {
 .blog-card:hover { transform: translateY(-5px); }
 .blog-card img { width: 100%; height: 240px; object-fit: cover; }
 
-/* Blog Detay */
 .blog-container {
     max-width: 900px;
     margin: 60px auto;
@@ -844,7 +803,6 @@ input, select {
     margin-bottom: 35px;
 }
 
-/* İletişim */
 .contact-section { padding: 80px 60px; background: #fcfcfc; }
 .contact-container {
     max-width: 1100px;
@@ -859,7 +817,6 @@ input, select {
     border: none; padding: 14px; cursor: pointer;
 }
 
-/* Randevu */
 .appointment-box {
     max-width: 500px;
     margin: 0 auto;
@@ -869,7 +826,6 @@ input, select {
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
-/* Arama Sayfası */
 .search-page {
     max-width: 1200px;
     margin: 40px auto;
@@ -885,11 +841,6 @@ input, select {
     margin-bottom: 40px;
 }
 
-/* ==========================================================================
-   8. MODALS (LOGIN, POPUP, WARNING)
-   ========================================================================== */
-/* Ortak Modal Overlay */
-/* ================= LOGIN MODAL ================= */
 .login-modal {
   position: fixed;
   inset: 0;
@@ -953,8 +904,6 @@ input, select {
   font-size: 22px;
   cursor: pointer;
 }
-
-/* BLUR */
 body.blur {
   filter: blur(4px);
 }
@@ -966,8 +915,6 @@ body.blur {
     border-radius: 8px; font-size: 14px;
     margin-bottom: 15px;
 }
-
-/* Uyarı Popup */
 .warning-popup {
     width: 90%;
     max-width: 450px;
@@ -986,10 +933,6 @@ body.blur {
     border-radius: 6px;
     cursor: pointer;
 }
-
-/* ==========================================================================
-   9. FOOTER
-   ========================================================================== */
 .footer {
     background: #fcfbfb;
     color: #080606;
@@ -1022,9 +965,6 @@ body.blur {
     color: #eae9e9;
 }
 
-/* ==========================================================================
-   10. RESPONSIVE (MOBİL UYUMLULUK)
-   ========================================================================== */
 @media (max-width: 900px) {
     .shop-container,
     .product-wrapper,
@@ -1074,10 +1014,6 @@ body.blur {
 }
 
 
-/* ==============================
-   SIMILAR PRODUCTS CAROUSEL
-   ============================== */
-
 .similar-section {
   max-width: 1200px;
   margin: 100px auto;
@@ -1102,7 +1038,7 @@ body.blur {
   display: flex;
   gap: 25px;
   width: 100%;
-  overflow: hidden; /* 🔥 önemli */
+  overflow: hidden; 
   scroll-behavior: smooth;
   padding: 10px 0;
 }
@@ -1112,7 +1048,6 @@ body.blur {
   display: none;
 }
 
-/* Oklar */
 .carousel-btn {
   background: #fff;
   border: 1px solid #e5e5e5;
@@ -1165,7 +1100,6 @@ body.blur {
   font-size: 15px;
 }
 
-/* --- LOGIN MODAL TASARIMI --- */
 .hidden {
     display: none !important;
 }
@@ -1174,13 +1108,12 @@ body.blur {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Arka plan karartma */
+    background: rgba(0, 0, 0, 0.6); 
     z-index: 99999; /* En üstte */
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px); /* Buzlu cam efekti */
-}
+    backdrop-filter: blur(5px); 
 
 .login-box {
     background: white;
@@ -1267,11 +1200,10 @@ body.blur {
     font-size: 13px;
 }
 
-/* --- HERO (BANNER) AYARLARI --- */
 .hero {
     width: 100%;
-    height: 600px; /* Yükseklik vermezsen görünmez */
-    background-image: url('https://images.unsplash.com/photo-1594552072238-b8a33785b261?q=80&w=1920&auto=format&fit=crop'); /* Resim Linki */
+    height: 600px; 
+    background-image: url('https://images.unsplash.com/photo-1594552072238-b8a33785b261?q=80&w=1920&auto=format&fit=crop'); 
     background-size: cover;
     background-position: center;
     position: relative;
@@ -1282,7 +1214,6 @@ body.blur {
     color: white;
 }
 
-/* Resmin üzerine hafif karartma atalım ki yazı okunsun */
 .hero::before {
     content: "";
     position: absolute;
@@ -1293,7 +1224,7 @@ body.blur {
 
 .hero-content {
     position: relative;
-    z-index: 2; /* Yazıyı karartmanın üzerine çıkar */
+    z-index: 2; 
 }
 
 .hero h2 {
@@ -1319,10 +1250,9 @@ body.blur {
 }
 
 
-/* --- VİTRİN SLIDER TASARIMI --- */
 .vitrin-section {
     padding: 50px 20px;
-    background-color: #fff; /* Beyaz boşluğu dolduruyoruz */
+    background-color: #fff; 
     text-align: center;
 }
 
@@ -1349,16 +1279,15 @@ body.blur {
 .slider-track {
     display: flex;
     gap: 20px;
-    overflow-x: auto; /* Yatay kaydırma */
+    overflow-x: auto; 
     scroll-behavior: smooth;
-    padding: 20px 5px; /* Gölgeler kesilmesin diye */
+    padding: 20px 5px; 
     
-    /* Scroll barı gizle (İsteğe bağlı) */
-    scrollbar-width: none; /* Firefox */
+   
+    scrollbar-width: none; 
 }
 .slider-track::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
 
-/* ÜRÜN KARTI */
 .slider-card {
     min-width: 280px; /* Kart genişliği */
     max-width: 280px;
@@ -1425,7 +1354,6 @@ body.blur {
     background: #000;
 }
 
-/* OK BUTONLARI */
 .slider-btn {
     background: white;
     border: 1px solid #ddd;
@@ -1454,7 +1382,6 @@ body.blur {
 
 .product-wrapper { display: flex; gap: 50px; flex-wrap: wrap; }
 
-/* GALERİ */
 .gallery-section { flex: 1; min-width: 350px; }
 .main-image-box { 
     width: 100%; height: 550px; 
@@ -1472,7 +1399,6 @@ body.blur {
 }
 .thumb:hover, .thumb.active { opacity: 1; border-color: #333; }
 
-/* BİLGİLER */
 .info-section { flex: 1; min-width: 350px; }
 h1 { font-family: 'Times New Roman', serif; font-size: 2.5rem; margin-bottom: 5px; }
 .sku { color: #888; margin-bottom: 20px; font-size: 0.9rem; }
@@ -1482,7 +1408,6 @@ h1 { font-family: 'Times New Roman', serif; font-size: 2.5rem; margin-bottom: 5p
 .price-satis { color: #e53e3e; font-size: 1.5rem; }
 .price-kira { color: #d97706; }
 
-/* SEÇENEKLER */
 .option-group { margin-bottom: 20px; }
 .label-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
 .size-guide-link { color: #333; text-decoration: underline; font-size: 0.9rem; cursor: pointer; }
@@ -1499,7 +1424,6 @@ h1 { font-family: 'Times New Roman', serif; font-size: 2.5rem; margin-bottom: 5p
 }
 .size-box:hover, .size-box.selected { background: #333; color: white; border-color: #333; }
 
-/* BUTONLAR */
 .action-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
 .btn-add-cart { 
     flex: 1; padding: 15px; background: #333; color: white; 
@@ -1519,28 +1443,22 @@ h1 { font-family: 'Times New Roman', serif; font-size: 2.5rem; margin-bottom: 5p
 }
 .btn-appointment:hover { background: #333; color: white; }
 
-/* TERZİ NOTU */
 .tailor-note { 
     background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; 
     display: flex; gap: 15px; align-items: start; font-size: 0.9rem; color: #555;
 }
 
-/* BENZER ÜRÜNLER */
 .similar-products { margin-top: 60px; }
 .similar-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
 .similar-card { min-width: 200px; text-align: center; }
 .similar-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
 
-/* MODAL */
 .modal { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center; }
 .modal-content { background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; position: relative; }
 .close-modal { position: absolute; top: 10px; right: 15px; font-size: 30px; cursor: pointer; }
 .size-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
 .size-table th, .size-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
 
-
-
-/* KART BİLGİLERİ TASARIMI */
 .payment-wrapper {
     background: #fff;
     border: 1px solid #e5e7eb;
