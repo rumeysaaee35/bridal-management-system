@@ -1,4 +1,3 @@
-// public/js/vitrin.js
 
 async function loadVitrin() {
     try {
@@ -16,23 +15,18 @@ async function loadVitrin() {
         }
 
         products.forEach(p => {
-            // --- RESİM YOLU DÜZELTME MANTIĞI ---
             let imgUrl = 'https://placehold.co/300x450?text=Resim+Yok';
             
             if(p.resim) {
-                // Windows ters slash'lerini düzelt (\ -> /)
                 let hamYol = p.resim.replace(/\\/g, "/");
-
-                // Eğer yol zaten "/uploads" veya "uploads" ile başlıyorsa tekrar ekleme
                 if (hamYol.startsWith("uploads") || hamYol.startsWith("/uploads")) {
                     imgUrl = hamYol.startsWith("/") ? hamYol : "/" + hamYol;
                 } else {
-                    // Başlamıyorsa biz ekleyelim
                     imgUrl = "/uploads/" + (hamYol.startsWith("/") ? hamYol.substring(1) : hamYol);
                 }
             }
             
-            console.log(`Ürün: ${p.model_ad}, Resim Yolu: ${imgUrl}`); // Hata ayıklamak için konsola yaz
+            console.log(`Ürün: ${p.model_ad}, Resim Yolu: ${imgUrl}`); 
 
             track.innerHTML += `
                 <div class="slider-card">
@@ -53,7 +47,6 @@ async function loadVitrin() {
     }
 }
 
-// Kaydırma Fonksiyonu
 function scrollSlider(direction) {
     const track = document.getElementById('vitrin-track');
     if(track) {
