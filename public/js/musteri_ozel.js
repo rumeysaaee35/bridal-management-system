@@ -18,7 +18,6 @@ async function musteriPaneliAc() {
     });
 }
 
-// RANDEVU POP-UP (2 SAAT KURALI DAHİL)
 async function showRandevuPopUp(tel) {
     try {
         const res = await fetch(`/api/musteri/randevularim?tel=${tel}`);
@@ -34,7 +33,6 @@ async function showRandevuPopUp(tel) {
                 const farkSaat = (rVakti - suAn) / (1000 * 60 * 60);
 
                 let islem = "";
-                // 2 saatten fazla varsa buton göster
                 if (farkSaat > 2 && (!r.onay_durumu || r.onay_durumu === 'Bekliyor')) {
                     islem = `
                         <button onclick="randevuDurumGuncelle(${r.randevu_id}, 'Onaylandı')" style="background:green; color:#fff; border:none; padding:5px; border-radius:4px;">Onayla</button>
@@ -64,11 +62,8 @@ async function randevuDurumGuncelle(id, durum) {
     });
     Swal.fire("Başarılı", "Randevu durumu güncellendi.", "success").then(() => musteriPaneliAc());
 }
-
-// musteri_ozel.js içine ekle
 async function showSiparisTakipPopUp(tel) {
     try {
-        // Atölye veya sepet tablonuzdan sipariş durumunu çeker
         const res = await fetch(`/api/musteri/siparislerim?tel=${tel}`);
         const data = await res.json();
 
