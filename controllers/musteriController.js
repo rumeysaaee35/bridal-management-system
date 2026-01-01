@@ -49,7 +49,7 @@ export const getRandevularim = async (req, res) => {
 };
 
 export const postRandevuIslem = async (req, res) => {
-    const { id } = req.params; // randevu_id
+    const { id } = req.params; 
     const { durum } = req.body;
     try {
         await pool.query(
