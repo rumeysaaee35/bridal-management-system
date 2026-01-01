@@ -12,25 +12,20 @@
     <style>
         body { background: #f8f9fa; font-family: 'Segoe UI', sans-serif; display: flex; }
         
-        /* SIDEBAR TASARIMI */
         .sidebar { width: 260px; height: 100vh; background: #2c3e50; color: white; padding: 20px; position: fixed; display: flex; flex-direction: column; }
         .nav-link { color: #bdc3c7; padding: 12px; margin-bottom: 5px; cursor: pointer; text-decoration: none; border-radius: 8px; }
         .nav-link:hover, .nav-link.active { background: #34495e; color: white; }
         
-        /* İÇERİK ALANI */
         .main-content { margin-left: 260px; padding: 30px; width: 100%; }
         
-        /* SEKME GİZLE/GÖSTER EFEKTİ */
         .tab-section { display: none; }
         .tab-section.active { display: block; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from {opacity:0} to {opacity:1} }
         
-        /* KART TASARIMLARI */
         .card-stat { padding: 20px; border-radius: 15px; color: white; position: relative; overflow: hidden; height: 120px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .card-stat h3 { font-size: 1.8rem; font-weight: bold; margin: 0; }
         .card-stat i { position: absolute; right: 20px; bottom: 20px; font-size: 3rem; opacity: 0.2; }
         
-        /* KART RENKLERİ */
         .bg-ciro { background: linear-gradient(45deg, #11998e, #38ef7d); }
         .bg-satis { background: linear-gradient(45deg, #FF416C, #FF4B2B); }
         .bg-randevu { background: linear-gradient(45deg, #2193b0, #6dd5ed); }
