@@ -4,9 +4,6 @@ console.log(">>> URUN MODEL YÜKLENDİ <<<");
 
 import pool from "../config/db.js";
 
-/* =========================
-   MÜŞTERİ MAĞAZASI – TÜM ÜRÜNLER
-========================= */
 export async function getAllUrunler() {
   const [rows] = await pool.query(`
     SELECT 
