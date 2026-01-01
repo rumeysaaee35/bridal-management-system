@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCart();
 });
 
-// SEPETİ YÜKLE
 function loadCart() {
     const sepet = JSON.parse(localStorage.getItem("sepet")) || [];
     const tbody = document.getElementById("cartTableBody");
@@ -62,7 +61,6 @@ function loadCart() {
     document.getElementById("grandTotal").innerText = toplamTutar + " ₺";
 }
 
-// ADET DEĞİŞTİRME
 window.adetDegistir = function(index, miktar) {
     let sepet = JSON.parse(localStorage.getItem("sepet")) || [];
     
@@ -73,19 +71,15 @@ window.adetDegistir = function(index, miktar) {
     localStorage.setItem("sepet", JSON.stringify(sepet));
     loadCart();
 }
-
-// ÜRÜN SİLME
 window.urunuSil = function(index) {
     let sepet = JSON.parse(localStorage.getItem("sepet")) || [];
     sepet.splice(index, 1); // Listeden sil
     localStorage.setItem("sepet", JSON.stringify(sepet));
-    loadCart(); // Tekrar yükle
+    loadCart(); 
     
-    // Header'daki sepet ikonunu güncellemek için sayfa yenilemesi yerine event atılabilir ama şimdilik basit kalsın
     window.location.reload(); 
 }
 
-// SİPARİŞİ TAMAMLA (Backend'e Gönder)
 window.siparisiTamamla = async function() {
     const sepet = JSON.parse(localStorage.getItem("sepet")) || [];
 
@@ -94,20 +88,17 @@ window.siparisiTamamla = async function() {
         return;
     }
 
-    // 1. ADRES BİLGİLERİ
     const ad = document.getElementById("musteriAd").value;
     const soyad = document.getElementById("musteriSoyad").value;
     const tel = document.getElementById("musteriTel").value;
     const adres = document.getElementById("musteriAdres").value;
 
-    // 2. KART BİLGİLERİ (YENİ)
     const kartIsim = document.getElementById("kartIsim").value;
     const kartNo = document.getElementById("kartNo").value;
     const kartAy = document.getElementById("kartAy").value;
     const kartYil = document.getElementById("kartYil").value;
     const kartCvv = document.getElementById("kartCvv").value;
 
-    // 3. KONTROL (Validasyon)
     if(!ad || !soyad || !tel || !adres) {
         alert("Lütfen teslimat bilgilerini eksiksiz doldurun.");
         return;
@@ -117,15 +108,12 @@ window.siparisiTamamla = async function() {
         return;
     }
 
-    // ... BURADAN SONRASI AYNI (FETCH KISMI) ...
     const payload = {
         musteri_ad: ad,
         musteri_soyad: soyad,
         telefon: tel,
         adres: adres,
         urunler: sepet 
-        // NOT: Kart bilgilerini güvenlik gereği veritabanına kaydetmiyoruz,
-        // sadece ödeme alınmış gibi işlem yapıyoruz.
     };
 
     try {
@@ -150,8 +138,6 @@ window.siparisiTamamla = async function() {
         alert("Sipariş oluşturulamadı.");
     }
 }
-
-// KART NUMARASINI 4'ERLİ AYIRAN FONKSİYON
 function formatCardNumber(input) {
     // Sadece rakamları al
     let val = input.value.replace(/\D/g, '');
