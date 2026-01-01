@@ -1,38 +1,11 @@
 import pool from "../config/db.js";
 
-/* ==================================================
-   1. DASHBOARD KARTLARI VE GRAFİKLER (GÜNCELLENDİ 🚀)
-   ================================================== */
-/* ==================================================
-   1. DASHBOARD KARTLARI VE DETAYLI ANALİZ (GÜNCELLENDİ 🚀)
-   ================================================== */
-// --- DASHBOARD: FİLTRELİ VERİ GETİRME ---
 export async function getDashboardOzet(req, res) {
   try {
-    // 1. Seçilen Yılı Al (Varsayılan: Bu yıl)
     const secilenYil = req.query.yil || new Date().getFullYear(); 
 
-    // 2. KARTLAR (Genel Durum - Anlık Veri)
-    // Kartlar anlık olduğu için ana tablodan saymaya devam ediyoruz
-    // ... (Üst kısımlar aynı)
     const [ozetRows] = await pool.query(`
-      SELECT
-        (SELECT COUNT(*) FROM magaza_satislar WHERE islem_turu='satis') AS toplam_satis,
-        (SELECT COUNT(*) FROM magaza_satislar WHERE islem_turu='kiralama') AS toplam_kiralama,
-        (SELECT COUNT(*) FROM randevu) AS toplam_randevu,
-        
-        -- DÜZELTİLEN MANTIK BURASI 👇
-        -- Sabit < 3 yerine, her ürünün kendi 'kritik_adet_stok' değerine bakıyoruz.
-        -- Eğer sınır girilmemişse (NULL ise) varsayılan olarak 3 kabul etsin.
-        (SELECT COUNT(*) FROM adet 
-         WHERE urun_adet < COALESCE(kritik_adet_stok, 3)) AS kritik_stok,
-         
-        (SELECT SUM(toplam_tutar) FROM magaza_satislar) AS toplam_ciro
-    `);
-// ... (Alt kısımlar aynı)
 
-    // 3. SON İŞLEMLER LİSTESİ
-const [sonHareketler] = await pool.query(`
         SELECT 
             CONCAT(musteri_ad, ' ', musteri_soyad) as musteri, 
             toplam_tutar, 
@@ -44,19 +17,12 @@ const [sonHareketler] = await pool.query(`
         LIMIT 5
     `);
 
-    // --- GRAFİK VERİLERİ (SENİN TABLOLARINDAN) ---
-
-    // 4. GELİR VERİLERİ (Ciro Grafiği ve Pasta Grafik İçin)
-    // 'yillik_aylik_gelir' tablosundan o yıla ait verileri çekiyoruz
     const [gelirVerileri] = await pool.query(`
         SELECT ay, satis_geliri, kiralama_geliri, toplam_gelir
         FROM yillik_aylik_gelir
         WHERE yil = ?
-        ORDER BY islem_id ASC  -- Ayların sırasını korumak için ID'ye göre sıraladık
+        ORDER BY islem_id ASC 
     `, [secilenYil]);
-
-    // 5. MÜŞTERİ MEVSİMSELLİĞİ
-    // 'yillik_aylik_musteri' tablosundan o yıla ait müşteri sayıları
     const [musteriVerileri] = await pool.query(`
         SELECT ay, musteri_sayisi
         FROM yillik_aylik_musteri
@@ -64,12 +30,10 @@ const [sonHareketler] = await pool.query(`
         ORDER BY islem_id ASC
     `, [secilenYil]);
 
-    // 6. YILLAR LİSTESİ (Filtre kutusunu doldurmak için)
     const [yillar] = await pool.query(`
         SELECT DISTINCT yil FROM yillik_aylik_gelir ORDER BY yil DESC
     `);
 
-    // Hepsini Paketi Gönder
     res.json({ 
         kartlar: {
             toplam_satis: ozetRows[0].toplam_satis || 0,
@@ -80,9 +44,8 @@ const [sonHareketler] = await pool.query(`
         },
         tablo: sonHareketler,
         
-        // Yeni tablolardan gelen veriler:
-        gelir_verileri: gelirVerileri,     // İçinde hem toplam, hem satış, hem kira var
-        musteri_verileri: musteriVerileri, // İçinde ay ve müşteri sayısı var
+        gelir_verileri: gelirVerileri,    
+        musteri_verileri: musteriVerileri, 
         
         yillar: yillar.map(y => y.yil)
     });
@@ -92,9 +55,6 @@ const [sonHareketler] = await pool.query(`
     res.status(500).json({ error: "Veri Hatası" }); 
   }
 }
-/* ==================================================
-   2. SATIŞ ANALİZİ (Tablo Verisi)
-   ================================================== */
 export async function getSatisListesi(req, res) {
   try {
     const query = `
@@ -114,12 +74,6 @@ export async function getSatisListesi(req, res) {
   }
 }
 
-/* ==================================================
-   3. RANDEVU LİSTESİ
-   ================================================== */
-/* ==================================================
-   3. RANDEVU LİSTESİ (GÜNCELLENDİ ✅)
-   ================================================== */
 export async function getRandevuListesi(req, res) {
   try {
     const query = `
@@ -138,7 +92,6 @@ export async function getRandevuListesi(req, res) {
     
     const [rows] = await pool.query(query);
     
-    // Veritabanından gelen verileri doğrudan gönderiyoruz
     res.json(rows);
   } catch (err) {
     console.error("RANDEVU LİSTESİ HATASI:", err);
@@ -146,9 +99,6 @@ export async function getRandevuListesi(req, res) {
   }
 }
 
-/* ==================================================
-   4. ÜRÜN LİSTESİ (Select Kutusu İçin)
-   ================================================== */
 export async function getUrunlerBasit(req, res) {
     try {
         const [rows] = await pool.query("SELECT model_id, model_ad, satis_fiyat, kira_fiyat FROM urunler ORDER BY model_ad ASC");
@@ -159,9 +109,6 @@ export async function getUrunlerBasit(req, res) {
     }
 }
 
-/* ==================================================
-   5. YENİ SATIŞ EKLEME (Stok Düşmeli)
-   ================================================== */
 export async function magazaSatisEkle(req, res) {
   const connection = await pool.getConnection();
   try {
@@ -171,14 +118,12 @@ export async function magazaSatisEkle(req, res) {
     
     const toplam_tutar = Number(adet) * Number(birim_fiyat);
 
-    // 1. Satışı Kaydet
     await connection.query(`
       INSERT INTO magaza_satislar 
       (musteri_ad, musteri_soyad, telefon_no, model_id, adet, birim_fiyat, toplam_tutar, islem_turu, satis_tarihi)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
     `, [musteri_ad, musteri_soyad, telefon_no, model_id, adet, birim_fiyat, toplam_tutar, islem_turu]);
 
-    // 2. Stok Düş
     if (islem_turu === 'satis') {
         const [stokVarMi] = await connection.query("SELECT * FROM adet WHERE model_id = ?", [model_id]);
         
@@ -201,9 +146,6 @@ export async function magazaSatisEkle(req, res) {
   }
 }
 
-/* ==================================================
-   6. STOK LİSTESİ VE GRAFİK VERİSİ
-   ================================================== */
 export async function getStokDurumu(req, res) {
   try {
     const query = `
